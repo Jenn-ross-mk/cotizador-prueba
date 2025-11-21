@@ -1,3 +1,6 @@
+
+/* CSS */
+
 * {
   margin: 0;
   padding: 0;
@@ -313,4 +316,96 @@ article {
   h3 {
     font-weight: 500;
   }
+}
+
+/* desde acá codigo nuevo */
+
+/* --- CONTENEDOR DEL FORMULARIO --- */
+.modelo-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* CENTRA TODO */
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* --- SELECT MODERNO ESTILO AKAR --- */
+.modelo-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  max-width: 360px;
+
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  background-color: #1e293b; /* fondo acorde al sitio */
+  color: var(--text-primary);
+
+  border: 1px solid #334155;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  /* flecha personalizada */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23cbd5e1" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+/* Hover */
+.modelo-form select:hover {
+  border-color: #4a90e2;
+}
+
+/* Focus */
+.modelo-form select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 8px rgba(96,165,250,0.4);
+}
+
+/* optgroups */
+.modelo-form optgroup {
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+/* opciones */
+.modelo-form option {
+  background: #0f172a;
+  color: white;
+}
+
+/* --- BOTÓN “Buscar modelo” --- */
+.buscar-modelo-btn {
+  background: var(--primary);
+  color: white;
+
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  width: 100%;
+  max-width: 250px;
+
+  transition: 0.25s ease;
+}
+
+/* Hover */
+.buscar-modelo-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* Active */
+.buscar-modelo-btn:active {
+  transform: scale(0.96);
 }

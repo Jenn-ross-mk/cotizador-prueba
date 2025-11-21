@@ -1,11 +1,13 @@
+
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <title>DevJobs - Inicio</title>
+  <title>Cotizador</title>
   <meta charset="UTF-8" />
   <meta name="description" content="Encuentra las mejores ofertas de trabajo para desarrolladores en DevJobs.">
-
+  <script src="JS/main.js"></script>
   <link rel="stylesheet" href="css/estilos.css" />
 </head>
 
@@ -29,7 +31,7 @@
     </nav>
 
     <div>
-      <a href="">Cotizá ahora</a>
+      <a href="">Contacto</a>
       <!-- <a href="">Iniciar sesión</a> -->
     </div>
   </header>
@@ -42,7 +44,7 @@
 
       <p>Seleccioná el vehículo, elegí la financiación y obtené el monto final de tus cuotas. Una simulación completa, segura y rápida.</p>
 
-      <form role="search">
+      <!--<form role="search">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
@@ -56,47 +58,60 @@
 
           <button type="submit">Buscar</button>
         </div>
+      </form>-->
+      <form class="modelo-form" action="#">
+          <select name="modelo" id="modelo">
+            <option value="" disabled selected>Seleccioná el modelo</option>
+            <optgroup label="ONIX">
+              <option value="onix-1t-lt-mt" data-url="ONIX/onix-lt-mt.html">Onix 1.0T LT MT</option>
+              <option value="onix-1t-ltz-at" data-url="ONIX/onix-ltz-at.html">Onix 1.0T LTZ AT</option>
+              <option value="onix-1t-premier-at" data-url="ONIX/onix-premier.html">Onix 1.0T PREMIER AT</option>
+              <option value="onix-1t-rs-at">Onix 1.0T RS AT</option>
+              <option value="onix-plus-1t-lt-mt">Onix PLUS 1.0T LT MT</option>
+              <option value="onix-plus-1t-ltz-at">Onix PLUS 1.0T LTZ AT</option>
+              <option value="onix-plus-1t-premier-at">Onix PLUS 1.0T PREMIER AT</option>
+            </optgroup>
+            <optgroup label="TRACKER">
+              <option value="tracker-12t-lt-at">Tracker 1.2T LT AT</option>
+              <option value="tracker-12t-ltz-at">Tracker 1.2T LTZ AT</option>
+              <option value="tracker-12t-premier-at">Tracker 1.2T PREMIER AT</option>
+              <option value="tracker-12t-rs at">Tracker 1.2T RS AT</option>
+            </optgroup>
+            <optgroup label="ELÉCTRICOS">
+              <option value="spark-euv">Spark EUV</option>
+            </optgroup>
+            <optgroup label="SPIN">
+              <option value="spin-lt-mt">Spin 1.8 N LT MT</option>
+              <option value="spin-premier">Spin 1.8 N PREIER AT 7 A</option>
+            </optgroup>
+            <optgroup label="MONTANA">
+              <option value="montana-lt-at">Montana 1.2T LT AT</option>
+              <option value="montana-ltz-at">Montana 1.2T LTZ AT</option>
+              <option value="montana-premier-at">Montana 1.2T PREMIER AT</option>
+              <option value="montana-rs-at">Montana 1.2T RS AT</option>
+            </optgroup>
+            <optgroup label="S10">
+              <option value="s10-4x2-wt">S10 CD 2.8 TD 4X2 WT</option>
+              <option value="s10-4x4-wt">S10 CD 2.8 TD 4X4 WT</option>
+              <option value="s10-4x4-wt-AT">S10 CD 2.8 TD 4X4 WT AT</option>
+              <option value="s10-4x4-z71-at">S10 CD 2.8 TD 4X4 Z71 AT</option>
+              <option value="s10-4x4-ltz-at">S10 CD 2.8 TD 4X4 LTZ AT</option>
+              <option value="s10-4x4-hc-at">S10 CD 2.8 TD 4X4 HC AT</option>
+            </optgroup>
+            <optgroup label="UNIDADES LIMITADAS">
+              <option value="trailblazer">Trailblazer 2.8 4X4 HC AT</option>
+              <option value="silverado-trail-boss">Silverado Z71 TRAIL BOSS</option>
+              <option value="silverado-hc">Silverado HIGH COUNTRY</option>
+            </optgroup>
+          </select>
+          <input class="buscar-modelo-btn" type="submit" value="Buscar" />
       </form>
     </section>
   </main>
 
-  <footer>
-    <div>
-    </div>
-    <small>&copy; 2025 Akar automotores. Todos los derechos reservados.</small>
-  </footer>
-  <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
 </body>
-
+<footer>
+    <small>&copy; 2025 Akar automotores. Todos los derechos reservados.</small>
+</footer>
+<script src="JS/main.js"></script>
 </html>
