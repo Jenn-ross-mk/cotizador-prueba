@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotización Chevrolet Onix LT</title>
+
+<style>
+/* ============================================================
+   ESTILOS CSS (Tu código original)
+   ============================================================ */
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f6fa;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background: #003366;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+    .section {
+        background: white;
+        width: 90%;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .titulo {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+    .label {
+        font-weight: bold;
+    }
+    .value {
+        text-align: right;
+    }
+    .financiacion {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-top: 10px; /* Reducido para mejor distribución */
+    }
+    .footer {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 14px;
+    }
+    .header-icon {
+        height: 28px;
+        width: auto;
+        display: block;
+    }
+    .form-line {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 10px 0;
+    }
+    .line-input {
+        border: none;
+        border-bottom: 1.5px solid #999;
+        width: 220px;
+        font-size: 16px;
+        padding: 4px 0;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+    .line-input:focus {
+        border-bottom-color: #003366;
+    }
+    .line-input::placeholder {
+        color: #aaa;
+        opacity: 0.6;
+        font-size: 14px;
+    }
+    .cotizador-wrapper {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .input-monto-cliente {
+        width: 180px;
+        padding: 6px 10px;
+        border: none;
+        border-bottom: 1px solid #999;
+        text-align: right;
+        font-size: 16px;
+        background: transparent;
+    }
+    .input-monto-financiacion {
+        background: #cfcfcf;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        width: 140px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <img src="../img/AKAR LOGO 2024-06.png" alt="icono" class="header-icon">
+    </div>
+    <div id="fecha-hoy"></div>
+</div>
+
+<div class="cotizador-wrapper">
+
+    <div class="section">
+        <div class="form-line">
+            <span class="label">VENDEDOR:</span>
+            <input type="text" id="vendedor" class="line-input">
+        </div>
+
+        <div class="form-line">
+            <span class="label">CLIENTE:</span>
+            <input type="text" id="cliente" class="line-input">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="titulo" style="padding-bottom: 10px;">COTIZACIÓN</div>
+        <div class="row">
+            <div>
+                <div class="label" style="padding-bottom: 20px;">MODELO:</div>
+                <div class="label" style="font-size: 22px;">CHEVROLET ONIX LT</div>
+            </div>
+            <img src="../img/1_chevrolet-onix-lt-mt-turbo-2025-3.jpg" alt="onix" style="width:250px;">
+        </div>
+
+        <div class="row" style="font-size:22px; font-weight:bold;">
+            <div>PRECIO BASE:</div>
+            <div id="precioBase" style="padding-right: 35px;">35.591.001,02</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">CLIENTE</div>
+
+        <div class="row">
+            <div class="label">EFECTIVO O ENTREGA DE USADO:</div>
+            <input type="text" id="entregaCliente" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+
+        <div class="row">
+            <div class="label">DESCUENTO (si aplica):</div>
+            <input type="text" id="descuentoCliente" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">FINANCIACIÓN</div>
+
+        <div class="label" style="font-weight: normal; font-size: 14px; margin-bottom: 5px;">Plan Promocional (Subsidio Dealer)</div>
+        <div class="financiacion" id="financiacionNormal">
+            <div>
+                <input type="text" id="montoFinanciacionNormal" class="input-monto-financiacion" placeholder="MONTO NORMAL">
+            </div>
+
+            <div id="cuotasContainerNormal">
+                <select id="cantidadCuotasNormal" style="padding:8px 12px;">
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+
+            <div><div id="tasaFinanciacionNormal">TASA: 0.00%</div></div>
+            <div><div id="valorCuotaNormal">CUOTAS: $ 0,00</div></div>
+        </div>
+        
+        <hr style="margin: 20px 0; border-color: #eee;">
+
+        <div class="label" style="padding-bottom: 10px; font-weight: normal;">Plan Especial (Tasa Fija / UVA)</div>
+
+        <div class="financiacion" id="financiacionEspecial">
+            <div>
+                <input type="text" id="montoFinanciacionEspecial" class="input-monto-financiacion" placeholder="MONTO ESPECIAL">
+            </div>
+
+            <div id="tasaContainerEspecial">
+                <select id="tasaFinanciacionEspecial" style="padding:8px 12px;">
+                    <option value="">Seleccione Tasa</option>
+                    <option value="62.00">TASA 62.00%</option>
+                    <option value="30.90">UVA 30.90%</option>
+                </select>
+            </div>
+
+            <div id="cuotasContainerEspecial">
+                <select id="cantidadCuotasEspecial" style="padding:8px 12px;" disabled>
+                     <option value="">Cuotas</option>
+                </select>
+            </div>
+            
+            <div><div id="valorCuotaEspecial">CUOTAS: $ 0,00</div></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
+
+        <div class="row">
+            <div class="label">BANCO:</div>
+            <select id="bancoSeleccion" style="padding:6px 12px;">
+                <option value="chubut">Banco Chubut (1.2%)</option>
+                <option value="santacruz">Banco Santa Cruz (1.4%)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="label">QUEBRANTO :</div>
+            <div class="value" id="valorQuebranto">$ 0.00</div>
+        </div>
+
+        <div class="row">
+            <div class="label">SELLADO :</div>
+            <div class="value" id="valorSellado">$ 0.00</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">RESUMEN</div>
+
+        <div class="row">
+            <div class="label">VALOR FINAL:</div>
+            <div class="value" id="totalFinal">$ 0.00</div>
+        </div>
+
+        <div class="row">
+            <div class="label">SALDO EFECTIVO :</div>
+            <div class="value" id="saldoEfectivo">$ 0.00</div>
+        </div>
+
+        <button id="btnDescargarPDF" style="padding:10px 20px; margin-top:20px; font-size:16px; cursor:pointer;">
+            Descargar PDF
+        </button>
+    </div>
+
+    <div class="footer">PRESUPUESTO VÁLIDO POR 5 DÍAS</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* ============================================================
+    CONFIGURACIÓN DE PLANES Y TASAS
+    ============================================================ */
+// Valores obtenidos de la tabla "Plan Promocional Onix Noviembre"
+const PLAN_NORMAL = {
+    12: { 
+        tna: 0.00,  
+        valorCuotaPorMillon: 83333,
+        maxMonto: 12000000 
+    },
+    18: { 
+        tna: 9.90, 
+        valorCuotaPorMillon: 61657,
+        maxMonto: 14000000 
+    },
+    24: { 
+        tna: 20.90, 
+        valorCuotaPorMillon: 54804,
+        maxMonto: 17000000 
+    },
+    30: { 
+        tna: 24.90, 
+        valorCuotaPorMillon: 49234,
+        maxMonto: 18000000 
+    }
+};
+
+// NUEVOS PLANES ESPECIALES
+const PLAN_ESPECIAL = {
+    // TASA 30.90% (Solo 12, 18, 24)
+    "30.90": {
+        12: { valorCuotaPorMillon: 103055, maxCuota: 24 },
+        18: { valorCuotaPorMillon: 75242, maxCuota: 24 },
+        24: { valorCuotaPorMillon: 61492, maxCuota: 24 }
+    },
+    // TASA 62.00% (12, 18, 24, 36, 48, 60)
+    "62.00": {
+        12: { valorCuotaPorMillon: 124138, maxCuota: 60 },
+        18: { valorCuotaPorMillon: 96890, maxCuota: 60 },
+        24: { valorCuotaPorMillon: 83850, maxCuota: 60 },
+        36: { valorCuotaPorMillon: 71882, maxCuota: 60 },
+        48: { valorCuotaPorMillon: 66825, maxCuota: 60 },
+        60: { valorCuotaPorMillon: 64381, maxCuota: 60 }
+    }
+};
+
+const BANCOS = {
+    chubut: 0.012, // 1.2%
+    santacruz: 0.014 // 1.4%
+};
+
+const PORCENTAJE_QUEBRANTO = 0.12;
+const PORCENTAJE_IVA_QUEBRANTO = 0.21;
+const UNIDAD_BASE = 1000000;
+
+/* ============================================================
+    UTILIDADES
+    ============================================================ */
+function formatNumber(number) {
+    const options = { minimumFractionDigits: 2 };
+    return number.toLocaleString("es-AR", options);
+}
+
+/* ============================================================
+    INICIO DE LA LÓGICA
+    ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Inputs Financiación Normal
+    const inputMontoNormal = document.getElementById("montoFinanciacionNormal");
+    const selectCuotasNormal = document.getElementById("cantidadCuotasNormal");
+    const tasaTextoNormal = document.getElementById("tasaFinanciacionNormal");
+    const valorCuotaTextoNormal = document.getElementById("valorCuotaNormal");
+    const cuotasContainerNormal = document.getElementById("cuotasContainerNormal");
+    
+    // Inputs Financiación Especial
+    const inputMontoEspecial = document.getElementById("montoFinanciacionEspecial");
+    const selectTasaEspecial = document.getElementById("tasaFinanciacionEspecial");
+    const selectCuotasEspecial = document.getElementById("cantidadCuotasEspecial");
+    const valorCuotaTextoEspecial = document.getElementById("valorCuotaEspecial");
+    const cuotasContainerEspecial = document.getElementById("cuotasContainerEspecial");
+
+    // Inputs Gastos y Cliente
+    const bancoSelect = document.getElementById("bancoSeleccion");
+    const quebrantoTexto = document.getElementById("valorQuebranto");
+    const selladoTexto = document.getElementById("valorSellado");
+    const entregaClienteInput = document.getElementById("entregaCliente");
+    const descuentoInput = document.getElementById("descuentoCliente");
+
+    // Base
+    const precioBaseTexto = document.getElementById("precioBase").textContent;
+    const precioBase = parseFloat(precioBaseTexto.replace(/\./g, "").replace(",", ".")) || 0;
+
+    // Obtener plan normal disponible (por tope de monto)
+    function obtenerPlanNormal(monto, cuotas) {
+        const planCuota = PLAN_NORMAL[cuotas];
+        if (planCuota && monto <= planCuota.maxMonto) {
+            return planCuota;
+        }
+        return null;
+    }
+
+    // Actualizar opciones de cuotas normales
+    function actualizarOpcionesCuotasNormal(monto) {
+        [...selectCuotasNormal.options].forEach(opt => {
+            const c = parseInt(opt.value);
+            const planNormal = PLAN_NORMAL[c];
+            if (!planNormal) {
+                opt.disabled = false;
+                return;
+            }
+            opt.disabled = monto > planNormal.maxMonto;
+        });
+        
+        if (selectCuotasNormal.selectedOptions[0]?.disabled) {
+            const defaultOption = selectCuotasNormal.querySelector('option:not([disabled])') || selectCuotasNormal.options[0];
+            selectCuotasNormal.value = defaultOption.value;
+        }
+    }
+
+    // Actualizar opciones de cuotas especiales basadas en la tasa seleccionada
+    function actualizarOpcionesCuotasEspecial() {
+        const tasaSeleccionada = selectTasaEspecial.value;
+        const planSeleccionado = PLAN_ESPECIAL[tasaSeleccionada];
+
+        // Limpiar y deshabilitar por defecto
+        selectCuotasEspecial.innerHTML = '<option value="">Cuotas</option>';
+        selectCuotasEspecial.disabled = true;
+
+        if (planSeleccionado) {
+            selectCuotasEspecial.disabled = false;
+            // Obtener y ordenar las cuotas disponibles
+            const cuotasDisponibles = Object.keys(planSeleccionado).map(Number).sort((a, b) => a - b);
+            
+            cuotasDisponibles.forEach(cuota => {
+                const option = document.createElement('option');
+                option.value = cuota;
+                option.textContent = cuota;
+                selectCuotasEspecial.appendChild(option);
+            });
+            // Seleccionar la primera opción disponible por defecto
+            selectCuotasEspecial.value = cuotasDisponibles[0] || ''; 
+        }
+
+        // Se vuelve a calcular para actualizar todo con la nueva selección de cuotas
+        actualizarCalculo();
+    }
+
+
+    function actualizarCalculo() {
+        // --- 1. OBTENER VALORES ---
+        const montoNormal = parseFloat(inputMontoNormal.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const cuotasNormal = parseInt(selectCuotasNormal.value) || 0;
+        
+        const montoEspecial = parseFloat(inputMontoEspecial.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const tasaEspecial = selectTasaEspecial.value;
+        const cuotasEspecial = parseInt(selectCuotasEspecial.value) || 0;
+
+        const entrega = parseFloat(entregaClienteInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const descuento = parseFloat(descuentoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+
+        // --- 2. DETERMINAR PLAN ACTIVO (Especial tiene prioridad si es válido) ---
+        let montoActivo = 0;
+        let cuotasActivas = 0;
+        let valorCuotaMensual = 0;
+        let tasaActiva = "0.00";
+
+        // Reiniciar displays de ambos planes
+        tasaTextoNormal.textContent = "TASA: 0.00%";
+        valorCuotaTextoNormal.textContent = "CUOTAS: $ 0.00";
+        valorCuotaTextoEspecial.textContent = "CUOTAS: $ 0.00";
+
+        // Condición para Plan Especial: Monto > 0, Tasa seleccionada y Cuota válida para esa tasa.
+        if (montoEspecial > 0 && PLAN_ESPECIAL[tasaEspecial] && PLAN_ESPECIAL[tasaEspecial][cuotasEspecial]) {
+            
+            // --- CÁLCULO PLAN ESPECIAL ---
+            montoActivo = montoEspecial;
+            cuotasActivas = cuotasEspecial;
+            tasaActiva = tasaEspecial;
+            
+            const plan = PLAN_ESPECIAL[tasaEspecial][cuotasEspecial];
+            
+            // Cálculo: (Monto Especial / 1.000.000) * Valor específico mensual
+            const multiplicador = montoActivo / UNIDAD_BASE;
+            valorCuotaMensual = multiplicador * plan.valorCuotaPorMillon;
+
+            // Actualizar display especial
+            valorCuotaTextoEspecial.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+            
+            // Si el monto especial está activo, ocultar/ignorar la sección normal
+            inputMontoNormal.value = ''; // Opcional: limpiar la entrada normal
+            inputMontoNormal.disabled = true;
+            selectCuotasNormal.disabled = true;
+
+        } else {
+            
+            // --- CÁLCULO PLAN NORMAL (Volvemos al plan normal si el especial no se usa o es inválido) ---
+            inputMontoNormal.disabled = false;
+            selectCuotasNormal.disabled = false;
+            
+            montoActivo = montoNormal;
+            cuotasActivas = cuotasNormal;
+
+            actualizarOpcionesCuotasNormal(montoActivo);
+
+            const maxTotal = Math.max(...Object.values(PLAN_NORMAL).map(p => p.maxMonto));
+
+            if (montoActivo > 0 && montoActivo <= maxTotal) {
+                
+                const plan = obtenerPlanNormal(montoActivo, cuotasActivas); 
+                if (plan) {
+                    const valorBaseCuota = plan.valorCuotaPorMillon;
+                    const multiplicador = montoActivo / UNIDAD_BASE;
+                    valorCuotaMensual = multiplicador * valorBaseCuota;
+                    tasaActiva = plan.tna.toFixed(2);
+                    
+                    tasaTextoNormal.textContent = `TASA: ${tasaActiva}%`;
+                    valorCuotaTextoNormal.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+                } else {
+                    tasaTextoNormal.textContent = "TASA: -"; 
+                    valorCuotaTextoNormal.textContent = "CUOTAS: -";
+                }
+            }
+        }
+        
+        // --- 3. CÁLCULO DE GASTOS (USANDO MONTO ACTIVO) ---
+        
+        // Se calcula sobre el monto de financiación ACTIVO (Normal o Especial)
+        const montoBaseGastos = montoActivo;
+
+        // 1. Quebranto
+        const quebrantoBase = montoBaseGastos * PORCENTAJE_QUEBRANTO;
+        const ivaQuebranto = quebrantoBase * PORCENTAJE_IVA_QUEBRANTO;
+        const quebrantoTotal = quebrantoBase + ivaQuebranto;
+        quebrantoTexto.textContent = "$ " + formatNumber(quebrantoTotal);
+
+        // 2. Sellado
+        let sellado = 0;
+        if (valorCuotaMensual > 0) { 
+            const totalCuotas = valorCuotaMensual * cuotasActivas;
+            const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
+            
+            // Sellado = (Valor Cuota Mensual * Cantidad de Cuotas) * Porcentaje Banco
+            sellado = totalCuotas * porcentajeBanco; 
+        }
+        selladoTexto.textContent = "$ " + formatNumber(sellado);
+
+        // --- 4. RESUMEN ---
+        
+        // VALOR FINAL: (precioBase - entrega - descuento) + quebrantoTotal + sellado
+        const total = (precioBase - entrega - descuento) + quebrantoTotal + sellado;
+        
+        // SALDO EFECTIVO: (precioBase - entrega - descuento - monto FINANCIADO ACTIVO) + quebrantoTotal + sellado
+        const saldo = (precioBase - entrega - descuento - montoActivo) + quebrantoTotal + sellado;
+
+        document.getElementById("totalFinal").textContent =
+            "$ " + formatNumber(total);
+        
+        document.getElementById("saldoEfectivo").textContent =
+            "$ " + formatNumber(saldo);
+    }
+
+    // --- EVENTOS ---
+    
+    // Eventos de Financiación Especial
+    selectTasaEspecial.addEventListener("change", actualizarOpcionesCuotasEspecial);
+    selectCuotasEspecial.addEventListener("change", actualizarCalculo);
+    inputMontoEspecial.addEventListener("input", actualizarCalculo);
+
+    // Eventos de Financiación Normal
+    selectCuotasNormal.addEventListener("change", actualizarCalculo);
+    inputMontoNormal.addEventListener("input", actualizarCalculo);
+
+    // Eventos Comunes
+    bancoSelect.addEventListener("change", actualizarCalculo);
+    entregaClienteInput.addEventListener("input", actualizarCalculo);
+    descuentoInput.addEventListener("input", actualizarCalculo);
+
+    // Manejo de formato en inputs (Monto, Monto Especial, Entrega, Descuento)
+    const inputsFormato = [inputMontoNormal, inputMontoEspecial, entregaClienteInput, descuentoInput];
+    inputsFormato.forEach(input => {
+        input.addEventListener("input", function(e) {
+            actualizarCalculo(); 
+        });
+        
+        // Formatear al salir del campo
+        input.addEventListener("blur", function(e) {
+             let value = e.target.value.replace(/[$.]/g, ''); 
+             let number = parseFloat(value.replace(',', '.')) || 0;
+
+             if (number > 0) {
+                 e.target.value = formatNumber(number).replace('$', '').trim();
+             } else {
+                 e.target.value = '';
+             }
+        });
+    });
+    
+    // PDF
+    document.getElementById("btnDescargarPDF").addEventListener("click", async () => {
+        const { jsPDF } = window.jspdf;
+        const elemento = document.body;
+        const canvas = await html2canvas(elemento, { scale: 2 });
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        let y = 0;
+        while (y < imgHeight) {
+            pdf.addImage(imgData, "PNG", 0, -y, imgWidth, imgHeight);
+            y += pdfHeight;
+            if (y < imgHeight) pdf.addPage();
+        }
+
+        const nombre = document.getElementById("cliente").value || "sinNombre";
+        pdf.save(`Cotizacion_${nombre}.pdf`);
+    });
+
+    // Inicializar cálculo y opciones
+    actualizarOpcionesCuotasEspecial(); // Inicializa las cuotas del plan especial
+    actualizarCalculo();
+});
+
+// FECHA
+const hoy = new Date();
+document.getElementById("fecha-hoy").textContent =
+    String(hoy.getDate()).padStart(2, "0") + "-" +
+    String(hoy.getMonth() + 1).padStart(2, "0") + "-" +
+    hoy.getFullYear();
+</script>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cotización Chevrolet Onix LT</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -56,72 +57,62 @@
         font-size: 14px;
     }
     .header-icon {
-    height: 28px;   /* No cambia el tamaño del header */
-    width: auto;
-    display: block;
+        height: 28px;
+        width: auto;
+        display: block;
     }
     .form-line {
-    display: flex;
-    align-items: center;
-    gap: 12px; /* separa levemente la palabra de la línea */
-    margin: 10px 0;
-    }
-
-    .form-line .label {
-    font-weight: bold;
-    white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 10px 0;
     }
     .line-input {
-    border: none;
-    border-bottom: 1.5px solid #999;
-    width: 220px;   /* ahora queda pegado y proporcional */
-    font-size: 16px;
-    padding: 4px 0;
-    background: transparent;
-    outline: none;
-    transition: border-color 0.3s ease;
+        border: none;
+        border-bottom: 1.5px solid #999;
+        width: 220px;
+        font-size: 16px;
+        padding: 4px 0;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s ease;
     }
-
     .line-input:focus {
-    border-bottom-color: #003366;
+        border-bottom-color: #003366;
     }
-
     .line-input::placeholder {
-    color: #aaa;
-    opacity: 0.6;
-    font-size: 14px;
+        color: #aaa;
+        opacity: 0.6;
+        font-size: 14px;
     }
     .cotizador-wrapper {
-    max-width: 1400px;   /* Ajustalo a 900 / 1000 / 1100 según te guste */
-    margin-left: auto;
-    margin-right: auto;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .input-monto-cliente {
-    width: 180px;
-    padding: 6px 10px;
-    border: none;
-    border-bottom: 1px solid #999;
-    text-align: right;
-    font-size: 16px;
-    background: transparent;
+        width: 180px;
+        padding: 6px 10px;
+        border: none;
+        border-bottom: 1px solid #999;
+        text-align: right;
+        font-size: 16px;
+        background: transparent;
     }
     .input-monto-financiacion {
-    background: #cfcfcf;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    width: 140px;
+        background: #cfcfcf;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        width: 140px;
     }
-    .financiacion > div {
-    margin-right: 30px;
-   }
-
-
 </style>
 </head>
+
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <div style="display:flex; align-items:center; gap:10px;">
         <img src="../img/AKAR LOGO 2024-06.png" alt="icono" class="header-icon">
@@ -130,363 +121,281 @@
 </div>
 
 <div class="cotizador-wrapper">
- <div class="section">
-    <div class="form-line">
-        <span class="label">VENDEDOR:</span>
-        <input type="text" id="vendedor" class="line-input">
-    </div>
 
-    <div class="form-line">
-        <span class="label">CLIENTE:</span>
-        <input type="text" id="cliente" class="line-input">
-    </div>
- </div>
-
- <div class="section">
-    <div class="titulo" style="padding-bottom: 10px;">COTIZACIÓN</div>
-    <div class="row">
-        <div>
-            <div class="label" style="padding-bottom: 20px;">MODELO:</div>
-            <div class="label" style="font-size: 22px;">CHEVROLET ONIX LT</div>
+    <!-- VENDEDOR / CLIENTE -->
+    <div class="section">
+        <div class="form-line">
+            <span class="label">VENDEDOR:</span>
+            <input type="text" id="vendedor" class="line-input">
         </div>
-        <img src="../img/1_chevrolet-onix-lt-mt-turbo-2025-3.jpg" alt="onix" style="width:250px; height:auto;">
-    </div>
-    <div class="row" style="font-size:20px; font-weight:bold; font-size: 22px;">
-  <div>PRECIO BASE:</div>
-  <div id="precioBase" style="padding-right: 35px;">35.591.001,02 </div>
- </div>
- </div>
 
- <div class="section">
-    <div class="label" style="padding-bottom: 10px;">CLIENTE</div>
-
-    <div class="row">
-        <div class="label">EFECTIVO O ENTREGA DE USADO:</div>
-        <input type="text" class="input-monto-cliente" placeholder="$ 0.00">
-    </div>
-    <div class="row">
-      <div class="label">DESCUENTO (si aplica):</div>
-      <input type="text" id="descuentoCliente" class="input-monto-cliente" placeholder="$ 0.00">
-    </div>
- </div>
-
- <div class="section">
-  <div class="label" style="padding-bottom: 10px;">FINANCIACIÓN</div>
-  <div class="financiacion">
-    <div style="display:flex; flex-direction:column;">
-      <input 
-        type="text" 
-        id="montoFinanciacion"
-        class="input-monto-financiacion" 
-        placeholder="MONTO"
-      >
-    </div>
-    <div style="display:flex; flex-direction:column;">
-      <select id="cantidadCuotas" style="padding:8px 12px;">
-          <option value="12">12</option>
-          <option value="18">18</option>
-          <option value="24">24</option>
-          <option value="30">30</option>
-      </select>
-    </div>
-    <div style="display:flex; flex-direction:column;">
-      <div id="tasaFinanciacion">TASA: 0.00%</div>
-    </div>
-    <div style="display:flex; flex-direction:column;">
-      <div id="valorCuota">CUOTAS: $ 0,00</div>
-    </div>
-  </div>
- </div>
-
- <div class="section">
-    <div class="label" style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
-
-    <div class="row">
-    <div class="label">BANCO:</div>
-    <select id="bancoSeleccion" style="padding:6px 12px;">
-        <option value="chubut">Banco Chubut (1.2%)</option>
-        <option value="santacruz">Banco Santa Cruz (1.4%)</option>
-    </select>
- </div>
- <div class="row">
-    <div class="label">QUEBRANTO :</div>
-    <div class="value" id="valorQuebranto">$ 0.00</div>
- </div>
- <div class="row">
-    <div class="label">SELLADO :</div>
-    <div class="value" id="valorSellado">$ 0.00</div>
- </div>
- </div>
-
- <div class="section">
-    <div class="label" style="padding-bottom: 10px;">RESUMEN</div>
-    <div class="row">
-        <div class="label">VALOR FINAL (contempla gastos, entrega y descuento):</div>
-        <div class="value" id="totalFinal">$ 0.00</div>
+        <div class="form-line">
+            <span class="label">CLIENTE:</span>
+            <input type="text" id="cliente" class="line-input">
+        </div>
     </div>
 
-    <div class="row">
-        <div class="label">SALDO EFECTIVO :</div>
-        <div class="value" id="saldoEfectivo">$ 0.00</div>
+    <!-- MODELO -->
+    <div class="section">
+        <div class="titulo" style="padding-bottom: 10px;">COTIZACIÓN</div>
+        <div class="row">
+            <div>
+                <div class="label" style="padding-bottom: 20px;">MODELO:</div>
+                <div class="label" style="font-size: 22px;">CHEVROLET ONIX LT</div>
+            </div>
+            <img src="../img/1_chevrolet-onix-lt-mt-turbo-2025-3.jpg" alt="onix" style="width:250px;">
+        </div>
+
+        <div class="row" style="font-size:22px; font-weight:bold;">
+            <div>PRECIO BASE:</div>
+            <div id="precioBase" style="padding-right: 35px;">35.591.001,02</div>
+        </div>
     </div>
-    <button id="btnDescargarPDF" 
-    style="padding:10px 20px; margin-top:20px; font-size:16px; cursor:pointer;">
-    Descargar PDF
-    </button>
- </div>
+
+    <!-- CLIENTE: ENTREGA + DESCUENTO -->
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">CLIENTE</div>
+
+        <div class="row">
+            <div class="label">EFECTIVO O ENTREGA DE USADO:</div>
+            <input type="text" id="entregaCliente" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+
+        <div class="row">
+            <div class="label">DESCUENTO (si aplica):</div>
+            <input type="text" id="descuentoCliente" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+    </div>
+
+    <!-- FINANCIACIÓN -->
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">FINANCIACIÓN</div>
+
+        <div class="financiacion">
+            <div>
+                <input type="text" id="montoFinanciacion" class="input-monto-financiacion" placeholder="MONTO">
+            </div>
+
+            <div>
+                <select id="cantidadCuotas" style="padding:8px 12px;">
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+
+            <div><div id="tasaFinanciacion">TASA: 0.00%</div></div>
+            <div><div id="valorCuota">CUOTAS: $ 0,00</div></div>
+        </div>
+    </div>
+
+    <!-- GASTOS -->
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
+
+        <div class="row">
+            <div class="label">BANCO:</div>
+            <select id="bancoSeleccion" style="padding:6px 12px;">
+                <option value="chubut">Banco Chubut (1.2%)</option>
+                <option value="santacruz">Banco Santa Cruz (1.4%)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="label">QUEBRANTO :</div>
+            <div class="value" id="valorQuebranto">$ 0.00</div>
+        </div>
+
+        <div class="row">
+            <div class="label">SELLADO :</div>
+            <div class="value" id="valorSellado">$ 0.00</div>
+        </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">RESUMEN</div>
+
+        <div class="row">
+            <div class="label">VALOR FINAL:</div>
+            <div class="value" id="totalFinal">$ 0.00</div>
+        </div>
+
+        <div class="row">
+            <div class="label">SALDO EFECTIVO :</div>
+            <div class="value" id="saldoEfectivo">$ 0.00</div>
+        </div>
+
+        <button id="btnDescargarPDF" style="padding:10px 20px; margin-top:20px; font-size:16px; cursor:pointer;">
+            Descargar PDF
+        </button>
+    </div>
+
+    <div class="footer">PRESUPUESTO VÁLIDO POR 5 DÍAS</div>
 
 
- <div class="footer">PRESUPUESTO VÁLIDO POR 5 DÍAS</div>
+<!-- LIBRERÍAS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
- 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
- <script>
-// ----------------------------------------------
-// CONFIGURACIÓN EDITABLE
-// ----------------------------------------------
-
-// Tope para permitir tasa 0%
+<script>
+/* ============================================================
+   CONFIGURACIÓN
+   ============================================================ */
 const TOPE_MONTO_TASA_CERO = 18000000;
-
-// Cantidad máxima de cuotas con tasa 0%
 const TOPE_CUOTAS_TASA_CERO = 12;
 
-// Tabla de tasas por plan (editable)
 const TASAS = {
-  12: 0.00,
-  18: 9.90,
-  24: 14.50,
-  30: 22.00
+    12: 0.00,
+    18: 9.90,
+    24: 14.50,
+    30: 22.00 
 };
 
-// Porcentaje de sellado por banco
 const BANCOS = {
-  chubut: 0.012,      // 1.2%
-  santacruz: 0.014    // 1.4%
+    chubut: 0.012,
+    santacruz: 0.014
 };
 
+/* ============================================================
+   INICIO
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
 
-// ----------------------------------------------
-// LÓGICA PRINCIPAL
-// ----------------------------------------------
-document.addEventListener("DOMContentLoaded", function () {
+    const inputMonto = document.getElementById("montoFinanciacion");
+    const selectCuotas = document.getElementById("cantidadCuotas");
+    const tasaTexto = document.getElementById("tasaFinanciacion");
+    const valorCuotaTexto = document.getElementById("valorCuota");
 
-  // Inputs & elementos
-  const inputMonto = document.getElementById("montoFinanciacion");
-  const selectCuotas = document.getElementById("cantidadCuotas");
-  const tasaTexto = document.getElementById("tasaFinanciacion");
-  const valorCuotaTexto = document.getElementById("valorCuota");
+    const bancoSelect = document.getElementById("bancoSeleccion");
+    const quebrantoTexto = document.getElementById("valorQuebranto");
+    const selladoTexto = document.getElementById("valorSellado");
 
-  const bancoSelect = document.getElementById("bancoSeleccion");
-  const quebrantoTexto = document.getElementById("valorQuebranto");
-  const selladoTexto = document.getElementById("valorSellado");
-
-  // Tomar PRECIO BASE real del HTML y convertirlo a número
-  const precioBaseTexto = document.getElementById("precioBase").textContent;
-  const precioBase = parseFloat(
-  precioBaseTexto.replace(/\./g, "").replace(",", ".")
-  ) || 0;
-
-
-
-  // ------------------------------------------------
-  // Función principal: recalcular TODO
-  // ------------------------------------------------
-  function actualizarCalculo() {
-    const monto = parseFloat(inputMonto.value.replace(/\./g, "").replace(",", ".")) || 0;
-    const cuotas = parseInt(selectCuotas.value);
-
-    // Habilitar/deshabilitar cuotas según tope
-    actualizarOpcionesCuotas(monto);
-
-    // Obtener tasa correspondiente
-    const tasaAplicada = obtenerTasa(monto, cuotas);
-
-    // Mostrar tasa
-    tasaTexto.textContent = "TASA: " + tasaAplicada.toFixed(2) + "%";
-
-    let valorCuota = 0;
-
-    // ------------------------------------------------
-    // Cálculo de valor de cuota
-    // ------------------------------------------------
-    if (monto > 0 && cuotas > 0) {
-      const interesTotal = monto * (tasaAplicada / 100);
-      const montoFinal = monto + interesTotal;
-      valorCuota = montoFinal / cuotas;
-
-      valorCuotaTexto.textContent = "CUOTAS: $ " + valorCuota.toFixed(2);
-    } else {
-      valorCuotaTexto.textContent = "CUOTAS: $ 0.00";
-    }
-
-    // ------------------------------------------------
-    // Cálculo de QUEBRANTO (12% + IVA 21%)
-    // ------------------------------------------------
-    const quebranto = monto * 0.12;
-    const iva = quebranto * 0.21;
-    const quebrantoTotal = quebranto + iva;
-
-    quebrantoTexto.textContent = "$ " + quebrantoTotal.toFixed(2);
-
-
-    // ------------------------------------------------
-    // Cálculo de SELLADO (según banco)
-    // ------------------------------------------------
-    // const banco = bancoSelect.value;
-    // const porcentajeBanco = BANCOS[banco] || 0;
-    // const baseSellado = valorCuota * cuotas;
-    // const recargo = baseSellado * porcentajeBanco;
-    // const sellado = baseSellado + recargo;
-    // selladoTexto.textContent = "$ " + sellado.toFixed(2);
-
-    // ------------------------------------------------
-   // Cálculo de SELLADO (solo el recargo según banco)
-   // ------------------------------------------------
-    const banco = bancoSelect.value;
-    const porcentajeBanco = BANCOS[banco] || 0;       // 0.012 o 0.014
-    const baseSellado = valorCuota * cuotas;          // total de todas las cuotas
-    const sellado = baseSellado * porcentajeBanco;    // solo el recargo
-    selladoTexto.textContent = "$ " + sellado.toFixed(2);
-
-    // ------------------------------------------------
-// Tomar datos del cliente
-// ------------------------------------------------
-    const entregaClienteInput = document.querySelector(".input-monto-cliente");
-    const entregaCliente = parseFloat(
-    entregaClienteInput.value.replace(/\./g, "").replace(",", ".")
-    ) || 0;
-
+    const entregaClienteInput = document.getElementById("entregaCliente");
     const descuentoInput = document.getElementById("descuentoCliente");
-    const descuento = parseFloat(
-    descuentoInput.value.replace(/\./g, "").replace(",", ".")
-    ) || 0;
 
-  // ------------------------------------------------
-  // CALCULAR TOTAL FINAL
-  // ------------------------------------------------
-  // Total = precio base - entrega - descuento + quebranto + sellado
-    const total = (precioBase - entregaCliente - descuento) + quebrantoTotal + sellado;
+    const precioBaseTexto = document.getElementById("precioBase").textContent;
+    const precioBase = parseFloat(precioBaseTexto.replace(/\./g, "").replace(",", ".")) || 0;
 
-  // Saldo = precio base - entrega - descuento - monto financiado + quebranto + sellado
-  // ------------------------------------------------
-    const saldo = (precioBase - entregaCliente - descuento - monto) + quebrantoTotal + sellado;
 
-  // Mostrar datos
-    document.getElementById("saldoEfectivo").textContent =
-    "$ " + saldo.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    /* ============================================================
+       FUNCIÓN PRINCIPAL
+       ============================================================ */
+    function actualizarCalculo() {
 
-    document.getElementById("totalFinal").textContent =
-    "$ " + total.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const monto = parseFloat(inputMonto.value.replace(/\./g, "").replace(",", ".")) || 0;
+        const cuotas = parseInt(selectCuotas.value) || 0;
 
-    }
+        actualizarOpcionesCuotas(monto);
+        const tasaAplicada = obtenerTasa(monto, cuotas);
+        tasaTexto.textContent = "TASA: " + tasaAplicada.toFixed(2) + "%";
 
-  // ------------------------------------------------
-  // Deshabilitar cuotas si excede el tope
-  // ------------------------------------------------
-    function actualizarOpcionesCuotas(monto) {
-      [...selectCuotas.options].forEach(opt => {
-        const cant = parseInt(opt.value);
+        let valorCuota = 0;
 
-        if (monto > TOPE_MONTO_TASA_CERO && cant <= TOPE_CUOTAS_TASA_CERO) {
-          opt.disabled = true;
+        if (monto > 0 && cuotas > 0) {
+            const interes = monto * (tasaAplicada / 100);
+            valorCuota = (monto + interes) / cuotas;
+            valorCuotaTexto.textContent = "CUOTAS: $ " + valorCuota.toFixed(2);
         } else {
-          opt.disabled = false;
+            valorCuotaTexto.textContent = "CUOTAS: $ 0.00";
         }
-      });
+
+        const quebranto = monto * 0.12;
+        const iva = quebranto * 0.21;
+        const quebrantoTotal = quebranto + iva;
+        quebrantoTexto.textContent = "$ " + quebrantoTotal.toFixed(2);
+
+        const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
+        const baseSellado = valorCuota * cuotas;
+        const sellado = baseSellado * porcentajeBanco;
+        selladoTexto.textContent = "$ " + sellado.toFixed(2);
+
+        const entrega = parseFloat(entregaClienteInput.value.replace(/\./g, "").replace(",", ".")) || 0;
+        const descuento = parseFloat(descuentoInput.value.replace(/\./g, "").replace(",", ".")) || 0;
+
+        const total = (precioBase - entrega - descuento) + quebrantoTotal + sellado;
+        const saldo = (precioBase - entrega - descuento - monto) + quebrantoTotal + sellado;
+
+        document.getElementById("totalFinal").textContent =
+            "$ " + total.toLocaleString("es-AR", { minimumFractionDigits: 2 });
+
+        document.getElementById("saldoEfectivo").textContent =
+            "$ " + saldo.toLocaleString("es-AR", { minimumFractionDigits: 2 });
     }
 
 
-  // ------------------------------------------------
-  // Obtener tasa según condiciones
-  // ------------------------------------------------
-  function obtenerTasa(monto, cuotas) {
-    const tasaBase = TASAS[cuotas] ?? 0;
-
-    const cumpleTasaCero =
-      monto <= TOPE_MONTO_TASA_CERO &&
-      cuotas <= TOPE_CUOTAS_TASA_CERO;
-
-    if (tasaBase === 0 && !cumpleTasaCero) {
-      return obtenerPrimeraTasaPositiva();
+    function actualizarOpcionesCuotas(monto) {
+        [...selectCuotas.options].forEach(opt => {
+            const valor = parseInt(opt.value);
+            if (monto > TOPE_MONTO_TASA_CERO && valor <= TOPE_CUOTAS_TASA_CERO) {
+                opt.disabled = true;
+            } else {
+                opt.disabled = false;
+            }
+        });
     }
 
-    return tasaBase;
-  }
+    function obtenerTasa(monto, cuotas) {
+        const tasaBase = TASAS[cuotas] ?? 0;
+        const aplicaTasaCero = monto <= TOPE_MONTO_TASA_CERO && cuotas <= TOPE_CUOTAS_TASA_CERO;
 
-
-  // ------------------------------------------------
-  // Buscar la primera tasa mayor a 0 para reemplazar tasa 0%
-  // ------------------------------------------------
-  function obtenerPrimeraTasaPositiva() {
-    const valores = Object.values(TASAS).filter(t => t > 0);
-    return valores.length > 0 ? valores[0] : 0;
-  }
-
-
-  // ------------------------------------------------
-  // Eventos que recalculan todo
-  // ------------------------------------------------
-  inputMonto.addEventListener("input", actualizarCalculo);
-  selectCuotas.addEventListener("change", actualizarCalculo);
-  bancoSelect.addEventListener("change", actualizarCalculo);
-
-  entregaClienteInput.addEventListener("input", actualizarCalculo);
-  descuentoInput.addEventListener("input", actualizarCalculo);
-
-    // ------------------------------------------------------------
-   // GENERAR PDF REAL
-    // ------------------------------------------------------------
-  document.getElementById("btnDescargarPDF").addEventListener("click", async () => {
-    const { jsPDF } = window.jspdf;
-
-    // Elegimos lo que queremos convertir en PDF: toda la página
-    const elemento = document.body;
-
-    // Convertir a canvas
-    const canvas = await html2canvas(elemento, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
-
-    // Crear PDF A4
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
-
-    // Calcular tamaño
-    const imgWidth = pdfWidth;
-    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    // Si el contenido es más alto que una hoja, hacer multipáginas
-    let posicionY = 0;
-
-    if (imgHeight < pdfHeight) {
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    } else {
-        while (posicionY < imgHeight) {
-            pdf.addImage(imgData, "PNG", 0, posicionY * -1, imgWidth, imgHeight);
-            posicionY += pdfHeight;
-
-            if (posicionY < imgHeight) pdf.addPage();
+        if (tasaBase === 0 && !aplicaTasaCero) {
+            return Object.values(TASAS).find(t => t > 0) || 0;
         }
+        return tasaBase;
     }
 
-    // Descargar
-    pdf.save(`Cotizacion_${document.getElementById("cliente").value || "sinNombre"}.pdf`);
+    /* ============================================================
+       EVENTOS
+       ============================================================ */
+    inputMonto.addEventListener("input", actualizarCalculo);
+    selectCuotas.addEventListener("change", actualizarCalculo);
+    bancoSelect.addEventListener("change", actualizarCalculo);
+
+    entregaClienteInput.addEventListener("input", actualizarCalculo);
+    descuentoInput.addEventListener("input", actualizarCalculo);
+
+    /* ============================================================
+       PDF
+       ============================================================ */
+    document.getElementById("btnDescargarPDF").addEventListener("click", async () => {
+        const { jsPDF } = window.jspdf;
+        const elemento = document.body;
+
+        const canvas = await html2canvas(elemento, { scale: 2 });
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        let y = 0;
+
+        while (y < imgHeight) {
+            pdf.addImage(imgData, "PNG", 0, -y, imgWidth, imgHeight);
+            y += pdfHeight;
+            if (y < imgHeight) pdf.addPage();
+        }
+
+        const nombre = document.getElementById("cliente").value || "sinNombre";
+        pdf.save(`Cotizacion_${nombre}.pdf`);
+    });
+
 });
 
+/* ============================================================
+   FECHA
+   ============================================================ */
+const hoy = new Date();
+document.getElementById("fecha-hoy").textContent =
+    String(hoy.getDate()).padStart(2, "0") + "-" +
+    String(hoy.getMonth() + 1).padStart(2, "0") + "-" +
+    hoy.getFullYear();
 
-});
 </script>
 
 </body>
-<script>
-    const hoy = new Date();
-    const dia = String(hoy.getDate()).padStart(2, '0');
-    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-    const anio = hoy.getFullYear();
-
-    document.getElementById('fecha-hoy').textContent = `${dia}-${mes}-${anio}`;
-</script>
-
 </html>
