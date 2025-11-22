@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cotización Chevrolet Onix LT</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
-   ESTILOS CSS (Tu código original)
-   ============================================================ */
+    ESTILOS CSS
+    ============================================================ */
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Roboto', Arial, sans-serif;
         background: #f5f6fa;
         margin: 0;
         padding: 0;
@@ -43,16 +44,41 @@
         margin: 10px 0;
     }
     .label {
-        font-weight: bold;
+        font-weight: 500; /* Medium weight para los labels */
+    }
+    /* Estilo para los títulos de sección (CLIENTE, FINANCIACIÓN, GASTOS) */
+    .section > .label {
+        font-size: 1.2em; /* Título de sección más grande */
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #003366;
+    }
+    /* Clase específica para las filas del resumen con espaciado uniforme */
+    .resumen-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0; /* Espaciado fijo */
+        margin: 0;
+    }
+    .resumen-row .label {
+        font-weight: 400; /* Fuente normal para los nombres de las líneas */
+    }
+    .resumen-row:last-of-type { /* Selecciona el Saldo Efectivo */
+        font-weight: 700; /* Negrita para el saldo final */
+        font-size: 1.1em;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 2px solid #ddd;
     }
     .value {
         text-align: right;
+        font-weight: 500;
     }
     .financiacion {
         display: flex;
         gap: 20px;
         align-items: center;
-        margin-top: 10px; /* Reducido para mejor distribución */
+        margin-top: 10px;
     }
     .footer {
         text-align: center;
@@ -156,8 +182,13 @@
         <div class="label" style="padding-bottom: 10px;">CLIENTE</div>
 
         <div class="row">
-            <div class="label">EFECTIVO O ENTREGA DE USADO:</div>
-            <input type="text" id="entregaCliente" class="input-monto-cliente" placeholder="$ 0.00">
+            <div class="label">ENTREGA DE USADO:</div>
+            <input type="text" id="entregaUsadoInput" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+        
+        <div class="row">
+            <div class="label">ENTREGA DE EFECTIVO:</div>
+            <input type="text" id="entregaEfectivoInput" class="input-monto-cliente" placeholder="$ 0.00">
         </div>
 
         <div class="row">
@@ -165,11 +196,10 @@
             <input type="text" id="descuentoCliente" class="input-monto-cliente" placeholder="$ 0.00">
         </div>
     </div>
-
     <div class="section">
-        <div class="label" style="padding-bottom: 10px;">FINANCIACIÓN</div>
+        <div class="label"style="padding-bottom: 10px;">FINANCIACIÓN</div>
 
-        <div class="label" style="font-weight: normal; font-size: 14px; margin-bottom: 5px;">Plan Promocional (Subsidio Dealer)</div>
+        <div class="label" style="font-weight: normal; font-size: 14px; margin-bottom: 5px;">Plan Promocional</div>
         <div class="financiacion" id="financiacionNormal">
             <div>
                 <input type="text" id="montoFinanciacionNormal" class="input-monto-financiacion" placeholder="MONTO NORMAL">
@@ -215,7 +245,7 @@
         </div>
     </div>
     <div class="section">
-        <div class="label" style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
+        <div class="label"style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
 
         <div class="row">
             <div class="label">BANCO:</div>
@@ -237,15 +267,42 @@
     </div>
 
     <div class="section">
-        <div class="label" style="padding-bottom: 10px;">RESUMEN</div>
+        <div class="label">RESUMEN</div>
 
-        <div class="row">
-            <div class="label">VALOR FINAL:</div>
-            <div class="value" id="totalFinal">$ 0.00</div>
+        <div class="resumen-row">
+            <div class="label">VALOR DEL VEHÍCULO:</div>
+            <div class="value" id="resumenPrecioBase">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">ENTREGA DE USADO: </div>
+            <div class="value" id="resumenEntregaUsado">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">ENTREGA DE EFECTIVO: </div>
+            <div class="value" id="resumenEntregaEfectivo">$ 0.00</div>
         </div>
 
-        <div class="row">
-            <div class="label">SALDO EFECTIVO :</div>
+        <div class="resumen-row">
+            <div class="label">MONTO A FINANCIAR: </div>
+            <div class="value" id="resumenMontoFinanciado">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">GASTOS BANCARIOS: </div>
+            <div class="value" id="resumenGastosBancarios">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row"> 
+            <div class="label">SALDO EFECTIVO:</div>
+            <div class="value" id="resumenSaldoEfectivoFinal">$ 0.00</div>
+        </div>
+        
+        <div class="row" style="display:none;">
+            <div class="value" id="resumenAporteCliente">$ 0.00</div>
+            <div class="value" id="resumenTotalPagado">$ 0.00</div>
+            <div class="value" id="totalFinal">$ 0.00</div>
             <div class="value" id="saldoEfectivo">$ 0.00</div>
         </div>
 
@@ -253,7 +310,6 @@
             Descargar PDF
         </button>
     </div>
-
     <div class="footer">PRESUPUESTO VÁLIDO POR 5 DÍAS</div>
 
 
@@ -264,7 +320,6 @@
 /* ============================================================
     CONFIGURACIÓN DE PLANES Y TASAS
     ============================================================ */
-// Valores obtenidos de la tabla "Plan Promocional Onix Noviembre"
 const PLAN_NORMAL = {
     12: { 
         tna: 0.00,  
@@ -288,15 +343,12 @@ const PLAN_NORMAL = {
     }
 };
 
-// NUEVOS PLANES ESPECIALES
 const PLAN_ESPECIAL = {
-    // TASA 30.90% (Solo 12, 18, 24)
     "30.90": {
         12: { valorCuotaPorMillon: 103055, maxCuota: 24 },
         18: { valorCuotaPorMillon: 75242, maxCuota: 24 },
         24: { valorCuotaPorMillon: 61492, maxCuota: 24 }
     },
-    // TASA 62.00% (12, 18, 24, 36, 48, 60)
     "62.00": {
         12: { valorCuotaPorMillon: 124138, maxCuota: 60 },
         18: { valorCuotaPorMillon: 96890, maxCuota: 60 },
@@ -334,20 +386,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectCuotasNormal = document.getElementById("cantidadCuotasNormal");
     const tasaTextoNormal = document.getElementById("tasaFinanciacionNormal");
     const valorCuotaTextoNormal = document.getElementById("valorCuotaNormal");
-    const cuotasContainerNormal = document.getElementById("cuotasContainerNormal");
     
     // Inputs Financiación Especial
     const inputMontoEspecial = document.getElementById("montoFinanciacionEspecial");
     const selectTasaEspecial = document.getElementById("tasaFinanciacionEspecial");
     const selectCuotasEspecial = document.getElementById("cantidadCuotasEspecial");
     const valorCuotaTextoEspecial = document.getElementById("valorCuotaEspecial");
-    const cuotasContainerEspecial = document.getElementById("cuotasContainerEspecial");
-
+    
     // Inputs Gastos y Cliente
     const bancoSelect = document.getElementById("bancoSeleccion");
     const quebrantoTexto = document.getElementById("valorQuebranto");
     const selladoTexto = document.getElementById("valorSellado");
-    const entregaClienteInput = document.getElementById("entregaCliente");
+    
+    // DECLARACIONES: Entrega Separada
+    const entregaUsadoInput = document.getElementById("entregaUsadoInput");
+    const entregaEfectivoInput = document.getElementById("entregaEfectivoInput");
     const descuentoInput = document.getElementById("descuentoCliente");
 
     // Base
@@ -386,13 +439,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const tasaSeleccionada = selectTasaEspecial.value;
         const planSeleccionado = PLAN_ESPECIAL[tasaSeleccionada];
 
-        // Limpiar y deshabilitar por defecto
         selectCuotasEspecial.innerHTML = '<option value="">Cuotas</option>';
         selectCuotasEspecial.disabled = true;
 
         if (planSeleccionado) {
             selectCuotasEspecial.disabled = false;
-            // Obtener y ordenar las cuotas disponibles
             const cuotasDisponibles = Object.keys(planSeleccionado).map(Number).sort((a, b) => a - b);
             
             cuotasDisponibles.forEach(cuota => {
@@ -401,11 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = cuota;
                 selectCuotasEspecial.appendChild(option);
             });
-            // Seleccionar la primera opción disponible por defecto
             selectCuotasEspecial.value = cuotasDisponibles[0] || ''; 
         }
 
-        // Se vuelve a calcular para actualizar todo con la nueva selección de cuotas
         actualizarCalculo();
     }
 
@@ -414,53 +463,47 @@ document.addEventListener("DOMContentLoaded", () => {
         // --- 1. OBTENER VALORES ---
         const montoNormal = parseFloat(inputMontoNormal.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
         const cuotasNormal = parseInt(selectCuotasNormal.value) || 0;
-        
         const montoEspecial = parseFloat(inputMontoEspecial.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
         const tasaEspecial = selectTasaEspecial.value;
         const cuotasEspecial = parseInt(selectCuotasEspecial.value) || 0;
 
-        const entrega = parseFloat(entregaClienteInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        // CÁLCULOS DE ENTREGA
+        const entregaUsado = parseFloat(entregaUsadoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const entregaEfectivo = parseFloat(entregaEfectivoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const entrega = entregaUsado + entregaEfectivo; // Aporte total (Usado + Efectivo)
         const descuento = parseFloat(descuentoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
 
-        // --- 2. DETERMINAR PLAN ACTIVO (Especial tiene prioridad si es válido) ---
+        // --- 2. DETERMINAR PLAN ACTIVO Y CALCULAR CUOTA ---
         let montoActivo = 0;
         let cuotasActivas = 0;
         let valorCuotaMensual = 0;
-        let tasaActiva = "0.00";
-
-        // Reiniciar displays de ambos planes
+        
+        // Reiniciar displays y habilitar/deshabilitar controles
         tasaTextoNormal.textContent = "TASA: 0.00%";
         valorCuotaTextoNormal.textContent = "CUOTAS: $ 0.00";
         valorCuotaTextoEspecial.textContent = "CUOTAS: $ 0.00";
+        inputMontoNormal.disabled = false;
+        selectCuotasNormal.disabled = false;
 
-        // Condición para Plan Especial: Monto > 0, Tasa seleccionada y Cuota válida para esa tasa.
+        // Plan Especial tiene prioridad
         if (montoEspecial > 0 && PLAN_ESPECIAL[tasaEspecial] && PLAN_ESPECIAL[tasaEspecial][cuotasEspecial]) {
             
-            // --- CÁLCULO PLAN ESPECIAL ---
+            // CÁLCULO PLAN ESPECIAL
             montoActivo = montoEspecial;
             cuotasActivas = cuotasEspecial;
-            tasaActiva = tasaEspecial;
             
             const plan = PLAN_ESPECIAL[tasaEspecial][cuotasEspecial];
-            
-            // Cálculo: (Monto Especial / 1.000.000) * Valor específico mensual
             const multiplicador = montoActivo / UNIDAD_BASE;
             valorCuotaMensual = multiplicador * plan.valorCuotaPorMillon;
-
-            // Actualizar display especial
             valorCuotaTextoEspecial.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
             
-            // Si el monto especial está activo, ocultar/ignorar la sección normal
-            inputMontoNormal.value = ''; // Opcional: limpiar la entrada normal
+            // Deshabilitar la sección normal
             inputMontoNormal.disabled = true;
             selectCuotasNormal.disabled = true;
 
         } else {
             
-            // --- CÁLCULO PLAN NORMAL (Volvemos al plan normal si el especial no se usa o es inválido) ---
-            inputMontoNormal.disabled = false;
-            selectCuotasNormal.disabled = false;
-            
+            // CÁLCULO PLAN NORMAL
             montoActivo = montoNormal;
             cuotasActivas = cuotasNormal;
 
@@ -475,9 +518,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     const valorBaseCuota = plan.valorCuotaPorMillon;
                     const multiplicador = montoActivo / UNIDAD_BASE;
                     valorCuotaMensual = multiplicador * valorBaseCuota;
-                    tasaActiva = plan.tna.toFixed(2);
                     
-                    tasaTextoNormal.textContent = `TASA: ${tasaActiva}%`;
+                    tasaTextoNormal.textContent = `TASA: ${plan.tna.toFixed(2)}%`;
                     valorCuotaTextoNormal.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
                 } else {
                     tasaTextoNormal.textContent = "TASA: -"; 
@@ -486,9 +528,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         
-        // --- 3. CÁLCULO DE GASTOS (USANDO MONTO ACTIVO) ---
+        // --- 3. CÁLCULO DE GASTOS BANCARIOS (USANDO MONTO ACTIVO) ---
         
-        // Se calcula sobre el monto de financiación ACTIVO (Normal o Especial)
         const montoBaseGastos = montoActivo;
 
         // 1. Quebranto
@@ -502,51 +543,87 @@ document.addEventListener("DOMContentLoaded", () => {
         if (valorCuotaMensual > 0) { 
             const totalCuotas = valorCuotaMensual * cuotasActivas;
             const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
-            
-            // Sellado = (Valor Cuota Mensual * Cantidad de Cuotas) * Porcentaje Banco
             sellado = totalCuotas * porcentajeBanco; 
         }
         selladoTexto.textContent = "$ " + formatNumber(sellado);
 
-        // --- 4. RESUMEN ---
+        // =======================================================
+        // 4. CÁLCULO Y ACTUALIZACIÓN DEL RESUMEN SIMPLIFICADO
+        // =======================================================
         
-        // VALOR FINAL: (precioBase - entrega - descuento) + quebrantoTotal + sellado
-        const total = (precioBase - entrega - descuento) + quebrantoTotal + sellado;
+        const totalGastosBancarios = quebrantoTotal + sellado;
         
-        // SALDO EFECTIVO: (precioBase - entrega - descuento - monto FINANCIADO ACTIVO) + quebrantoTotal + sellado
-        const saldo = (precioBase - entrega - descuento - montoActivo) + quebrantoTotal + sellado;
+        // CÁLCULO CLAVE DEL SALDO EFECTIVO (Según la fórmula simplificada)
+        const saldoEfectivoFinal = (
+            precioBase 
+            - entregaUsado 
+            - entregaEfectivo 
+            - montoActivo 
+            + quebrantoTotal 
+            + sellado
+            - descuento 
+        );
+        
+        // Actualizar displays del Nuevo Resumen
+        document.getElementById("resumenPrecioBase").textContent = 
+            "$ " + formatNumber(precioBase);
+            
+        document.getElementById("resumenEntregaUsado").textContent =
+            "$ " + formatNumber(entregaUsado);
+            
+        document.getElementById("resumenEntregaEfectivo").textContent =
+            "$ " + formatNumber(entregaEfectivo);
+            
+        document.getElementById("resumenMontoFinanciado").textContent =
+            "$ " + formatNumber(montoActivo);
+            
+        document.getElementById("resumenGastosBancarios").textContent =
+            "$ " + formatNumber(totalGastosBancarios);
+            
+        document.getElementById("resumenSaldoEfectivoFinal").textContent = 
+            "$ " + formatNumber(saldoEfectivoFinal);
+            
+        // Calculos auxiliares ocultos para compatibilidad con el PDF
+        
+        const aporteCliente = entregaUsado + entregaEfectivo + descuento;
+        document.getElementById("resumenAporteCliente").textContent =
+            "$ " + formatNumber(aporteCliente);
+
+        const totalPagadoCuotas = valorCuotaMensual * cuotasActivas;
+        const totalPagado = aporteCliente + totalPagadoCuotas;
+        document.getElementById("resumenTotalPagado").textContent =
+            "$ " + formatNumber(totalPagado);
 
         document.getElementById("totalFinal").textContent =
-            "$ " + formatNumber(total);
-        
+            "$ " + formatNumber(precioBase + totalGastosBancarios - descuento); 
         document.getElementById("saldoEfectivo").textContent =
-            "$ " + formatNumber(saldo);
+            "$ " + formatNumber(saldoEfectivoFinal);
     }
 
     // --- EVENTOS ---
     
-    // Eventos de Financiación Especial
+    // Eventos de Financiación
     selectTasaEspecial.addEventListener("change", actualizarOpcionesCuotasEspecial);
     selectCuotasEspecial.addEventListener("change", actualizarCalculo);
     inputMontoEspecial.addEventListener("input", actualizarCalculo);
-
-    // Eventos de Financiación Normal
     selectCuotasNormal.addEventListener("change", actualizarCalculo);
     inputMontoNormal.addEventListener("input", actualizarCalculo);
 
-    // Eventos Comunes
-    bancoSelect.addEventListener("change", actualizarCalculo);
-    entregaClienteInput.addEventListener("input", actualizarCalculo);
+    // Eventos de Cliente
+    entregaUsadoInput.addEventListener("input", actualizarCalculo);
+    entregaEfectivoInput.addEventListener("input", actualizarCalculo);
     descuentoInput.addEventListener("input", actualizarCalculo);
 
-    // Manejo de formato en inputs (Monto, Monto Especial, Entrega, Descuento)
-    const inputsFormato = [inputMontoNormal, inputMontoEspecial, entregaClienteInput, descuentoInput];
+    // Eventos Comunes
+    bancoSelect.addEventListener("change", actualizarCalculo);
+
+    // Manejo de formato en inputs
+    const inputsFormato = [inputMontoNormal, inputMontoEspecial, entregaUsadoInput, entregaEfectivoInput, descuentoInput];
     inputsFormato.forEach(input => {
         input.addEventListener("input", function(e) {
             actualizarCalculo(); 
         });
         
-        // Formatear al salir del campo
         input.addEventListener("blur", function(e) {
              let value = e.target.value.replace(/[$.]/g, ''); 
              let number = parseFloat(value.replace(',', '.')) || 0;
@@ -584,7 +661,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Inicializar cálculo y opciones
-    actualizarOpcionesCuotasEspecial(); // Inicializa las cuotas del plan especial
+    actualizarOpcionesCuotasEspecial(); 
     actualizarCalculo();
 });
 
