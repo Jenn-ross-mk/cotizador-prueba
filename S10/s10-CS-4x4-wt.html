@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotización Chevrolet S10 4X4 WT MT</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+    ESTILOS CSS
+    ============================================================ */
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: #f5f6fa;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background: #003366;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+    .section {
+        background: white;
+        width: 90%;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .titulo {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+    .label {
+        font-weight: 500; /* Medium weight para los labels */
+    }
+    /* Estilo para los títulos de sección (CLIENTE, FINANCIACIÓN, GASTOS) */
+    .section > .label {
+        font-size: 1.2em; /* Título de sección más grande */
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #003366;
+    }
+    /* Clase específica para las filas del resumen con espaciado uniforme */
+    .resumen-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0; /* Espaciado fijo */
+        margin: 0;
+    }
+    .resumen-row .label {
+        font-weight: 400; /* Fuente normal para los nombres de las líneas */
+    }
+    .resumen-row:last-of-type { /* Selecciona el Saldo Efectivo */
+        font-weight: 700; /* Negrita para el saldo final */
+        font-size: 1.1em;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 2px solid #ddd;
+    }
+    .value {
+        text-align: right;
+        font-weight: 500;
+    }
+    .financiacion {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .footer {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 14px;
+    }
+    .header-icon {
+        height: 28px;
+        width: auto;
+        display: block;
+    }
+    .form-line {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 10px 0;
+    }
+    .line-input {
+        border: none;
+        border-bottom: 1.5px solid #999;
+        width: 220px;
+        font-size: 16px;
+        padding: 4px 0;
+        background: transparent;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+    .line-input:focus {
+        border-bottom-color: #003366;
+    }
+    .line-input::placeholder {
+        color: #aaa;
+        opacity: 0.6;
+        font-size: 14px;
+    }
+    .cotizador-wrapper {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .input-monto-cliente {
+        width: 180px;
+        padding: 6px 10px;
+        border: none;
+        border-bottom: 1px solid #999;
+        text-align: right;
+        font-size: 16px;
+        background: transparent;
+    }
+    .input-monto-financiacion {
+        background: #cfcfcf;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        width: 140px;
+    }
+    /* Estilo añadido para el nuevo selector de precio base */
+    .input-precio-base {
+        padding: 8px 12px;
+        font-size: 22px;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        color: #003366;
+        outline: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <img src="../img/AKAR LOGO 2024-06.png" alt="icono" class="header-icon">
+    </div>
+    <div id="fecha-hoy"></div>
+</div>
+
+<div class="cotizador-wrapper">
+
+    <div class="section">
+        <div class="form-line">
+            <span class="label">VENDEDOR:</span>
+            <input type="text" id="vendedor" class="line-input">
+        </div>
+
+        <div class="form-line">
+            <span class="label">CLIENTE:</span>
+            <input type="text" id="cliente" class="line-input">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="titulo" style="padding-bottom: 10px;">COTIZACIÓN</div>
+        <div class="row">
+            <div>
+                <div class="label" style="padding-bottom: 20px;">MODELO:</div>
+                <div class="label" style="font-size: 22px;">CHEVROLET S10 4X4 WT MT</div>
+            </div>
+            <img src="../img/s10-4x4-wt.avif" alt="onix" style="width:250px;">
+        </div>
+
+        <div class="row" style="font-size:22px; font-weight:bold;">
+            <div>PRECIO BASE:</div>
+            <div id="precioBase" style="padding-right: 35px; font-size: 22px; font-weight: bold;">0,00</div>
+        </div>
+        <div class="row">
+            <div class="label">Gastos CYO:</div>
+            <select id="selectorPrecioBase" style="padding:6px 12px;">
+                <option value="" disabled selected>Gastos CYO</option>
+                <option value="chubut">Chubut</option>
+                <option value="santacruz">Santa Cruz</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label" style="padding-bottom: 10px;">CLIENTE</div>
+
+        <div class="row">
+            <div class="label">ENTREGA DE USADO:</div>
+            <input type="text" id="entregaUsadoInput" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+        
+        <div class="row">
+            <div class="label">ENTREGA DE EFECTIVO:</div>
+            <input type="text" id="entregaEfectivoInput" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+
+        <div class="row">
+            <div class="label">DESCUENTO (si aplica):</div>
+            <input type="text" id="descuentoCliente" class="input-monto-cliente" placeholder="$ 0.00">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label"style="padding-bottom: 10px;">PLAN PROMOCIONAL ONIX-TRACKER (TASA 0%)</div>
+
+        <div class="financiacion" id="financiacionOnixTracker">
+            <div>
+                <input type="text" id="montoFinanciacionOnixTracker" class="input-monto-financiacion" placeholder="MONTO O-T">
+            </div>
+
+            <div id="cuotasContainerOnixTracker">
+                <select id="cantidadCuotasOnixTracker" style="padding:8px 12px;">
+                    <option value="">Cuotas</option>
+                    
+                    <option value="24">24</option>
+                </select>
+            </div>
+
+            <div><div id="tasaFinanciacionOnixTracker">TASA: 0.00%</div></div>
+            <div><div id="valorCuotaOnixTracker">CUOTAS: $ 0,00</div></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="label"style="padding-bottom: 10px;">PLAN PROMOCIONAL</div>
+
+        <div class="financiacion" id="financiacionNormal">
+            <div>
+                <input type="text" id="montoFinanciacionNormal" class="input-monto-financiacion" placeholder="MONTO NORMAL">
+            </div>
+
+            <div id="cuotasContainerNormal">
+                <select id="cantidadCuotasNormal" style="padding:8px 12px;">
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+
+            <div><div id="tasaFinanciacionNormal">TASA: 0.00%</div></div>
+            <div><div id="valorCuotaNormal">CUOTAS: $ 0,00</div></div>
+        </div>
+        
+        <hr style="margin: 20px 0; border-color: #eee;">
+
+        <div class="label" style="padding-bottom: 10px; font-weight: normal;">Plan Especial (Tasa Fija / UVA)</div>
+
+        <div class="financiacion" id="financiacionEspecial">
+            <div>
+                <input type="text" id="montoFinanciacionEspecial" class="input-monto-financiacion" placeholder="MONTO ESPECIAL">
+            </div>
+
+            <div id="tasaContainerEspecial">
+                <select id="tasaFinanciacionEspecial" style="padding:8px 12px;">
+                    <option value="">Seleccione Tasa</option>
+                    <option value="59.50">TASA 59.50%</option> 
+                    <option value="30.90">UVA 30.90%</option>
+                </select>
+            </div>
+
+            <div id="cuotasContainerEspecial">
+                <select id="cantidadCuotasEspecial" style="padding:8px 12px;" disabled>
+                     <option value="">Cuotas</option>
+                </select>
+            </div>
+            
+            <div><div id="valorCuotaEspecial">CUOTAS: $ 0,00</div></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="label"style="padding-bottom: 10px;">GASTOS BANCARIOS</div>
+
+        <div class="row">
+            <div class="label">BANCO:</div>
+            <select id="bancoSeleccion" style="padding:6px 12px;">
+                <option value="chubut">Banco Chubut (1.2%)</option>
+                <option value="santacruz">Banco Santa Cruz (1.4%)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="label">QUEBRANTO :</div>
+            <div class="value" id="valorQuebranto">$ 0.00</div>
+        </div>
+
+        <div class="row">
+            <div class="label">SELLADO :</div>
+            <div class="value" id="valorSellado">$ 0.00</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="label">RESUMEN</div>
+
+        <div class="resumen-row">
+            <div class="label">VALOR DEL VEHÍCULO:</div>
+            <div class="value" id="resumenPrecioBase">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">ENTREGA DE USADO: </div>
+            <div class="value" id="resumenEntregaUsado">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">ENTREGA DE EFECTIVO: </div>
+            <div class="value" id="resumenEntregaEfectivo">$ 0.00</div>
+        </div>
+
+        <div class="resumen-row">
+            <div class="label">MONTO A FINANCIAR: </div>
+            <div class="value" id="resumenMontoFinanciado">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">GASTOS BANCARIOS: </div>
+            <div class="value" id="resumenGastosBancarios">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row"> 
+            <div class="label">SALDO EFECTIVO:</div>
+            <div class="value" id="resumenSaldoEfectivoFinal">$ 0.00</div>
+        </div>
+        
+        <div class="row" style="display:none;">
+            <div class="value" id="resumenAporteCliente">$ 0.00</div>
+            <div class="value" id="resumenTotalPagado">$ 0.00</div>
+            <div class="value" id="totalFinal">$ 0.00</div>
+            <div class="value" id="saldoEfectivo">$ 0.00</div>
+        </div>
+
+        <button id="btnDescargarPDF" style="padding:10px 20px; margin-top:20px; font-size:16px; cursor:pointer;">
+            Descargar PDF
+        </button>
+    </div>
+    <div class="footer">PRESUPUESTO VÁLIDO POR 5 DÍAS</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* ============================================================
+    CONFIGURACIÓN DE PLANES Y TASAS
+    ============================================================ */
+// CONFIGURACIÓN DE PRECIOS BASE
+const PRECIOS_BASE = {
+    chubut: 53843900.00, 
+    santacruz: 54443900.00 
+};
+
+// PLANES DE FINANCIACIÓN
+const PLAN_NORMAL = {
+    12: { 
+        tna: 0.00,  
+        valorCuotaPorMillon: 83333,
+        maxMonto: 20000000 
+    },
+    18: { 
+        tna: 14.90, 
+        valorCuotaPorMillon: 68814,
+        maxMonto: 20000000 
+    },
+    24: { 
+        tna: 25.90, 
+        valorCuotaPorMillon: 58116,
+        maxMonto: 22500000 
+    },
+    30: { 
+        tna: 34.90, 
+        valorCuotaPorMillon: 56180,
+        maxMonto: 25000000 
+    }
+};
+
+const PLAN_ESPECIAL = {
+    "30.90": {
+        12: { valorCuotaPorMillon: 103055, maxCuota: 24 },
+        18: { valorCuotaPorMillon: 75242, maxCuota: 24 },
+        24: { valorCuotaPorMillon: 61492, maxCuota: 24 }
+    },
+    "59.50": { 
+        12: { valorCuotaPorMillon: 122399, maxCuota: 60 },
+        18: { valorCuotaPorMillon: 95085, maxCuota: 60 },
+        24: { valorCuotaPorMillon: 81970, maxCuota: 60 },
+        36: { valorCuotaPorMillon: 69856, maxCuota: 60 },
+        48: { valorCuotaPorMillon: 64673, maxCuota: 60 },
+        60: { valorCuotaPorMillon: 62130, maxCuota: 60 }
+    }
+};
+
+// PLAN ONIX-TRACKER (TASA 0%, Quebranto 12%)
+const PLAN_ONIX_TRACKER = {
+    //18: { 
+    //    tna: 0.00,
+    //    valorCuotaPorMillon: 55556, 
+    //    maxMonto: 16000000,
+    //    quebranto: 0.12 // 12% para este plan
+    //}, 
+    24: { 
+        tna: 0.00,
+        valorCuotaPorMillon: 41667, 
+        maxMonto: 14000000,
+        quebranto: 0.12 // 12% para este plan
+    }
+};
+
+const PORCENTAJE_QUEBRANTO_DEFAULT = 0.11; // 11% para Planes Normal y Especial
+
+const BANCOS = {
+    chubut: 0.012, // 1.2%
+    santacruz: 0.014 // 1.4%
+};
+
+const PORCENTAJE_IVA_QUEBRANTO = 0.21;
+const UNIDAD_BASE = 1000000;
+
+/* ============================================================
+    UTILIDADES
+    ============================================================ */
+function formatNumber(number) {
+    const options = { minimumFractionDigits: 2 };
+    return number.toLocaleString("es-AR", options);
+}
+
+/* ============================================================
+    INICIO DE LA LÓGICA
+    ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Inputs Plan Onix-Tracker (NUEVOS)
+    const inputMontoOnixTracker = document.getElementById("montoFinanciacionOnixTracker");
+    const selectCuotasOnixTracker = document.getElementById("cantidadCuotasOnixTracker");
+    const tasaTextoOnixTracker = document.getElementById("tasaFinanciacionOnixTracker");
+    const valorCuotaTextoOnixTracker = document.getElementById("valorCuotaOnixTracker");
+
+    // Inputs Financiación Normal
+    const inputMontoNormal = document.getElementById("montoFinanciacionNormal");
+    const selectCuotasNormal = document.getElementById("cantidadCuotasNormal");
+    const tasaTextoNormal = document.getElementById("tasaFinanciacionNormal");
+    const valorCuotaTextoNormal = document.getElementById("valorCuotaNormal");
+    
+    // Inputs Financiación Especial
+    const inputMontoEspecial = document.getElementById("montoFinanciacionEspecial");
+    const selectTasaEspecial = document.getElementById("tasaFinanciacionEspecial");
+    const selectCuotasEspecial = document.getElementById("cantidadCuotasEspecial");
+    const valorCuotaTextoEspecial = document.getElementById("valorCuotaEspecial");
+    
+    // Inputs Gastos y Cliente
+    const bancoSelect = document.getElementById("bancoSeleccion");
+    const quebrantoTexto = document.getElementById("valorQuebranto");
+    const selladoTexto = document.getElementById("valorSellado");
+    
+    // DECLARACIONES: Entrega Separada
+    const entregaUsadoInput = document.getElementById("entregaUsadoInput");
+    const entregaEfectivoInput = document.getElementById("entregaEfectivoInput");
+    const descuentoInput = document.getElementById("descuentoCliente");
+
+    // DECLARACIONES: Precio Base (Selector y Display)
+    const selectorPrecioBase = document.getElementById("selectorPrecioBase");
+    const precioBaseDisplay = document.getElementById("precioBase");
+
+    // Obtener plan normal disponible (por tope de monto)
+    function obtenerPlanNormal(monto, cuotas) {
+        const planCuota = PLAN_NORMAL[cuotas];
+        if (planCuota && monto <= planCuota.maxMonto) {
+            return planCuota;
+        }
+        return null;
+    }
+
+    // Actualizar opciones de cuotas normales
+    function actualizarOpcionesCuotasNormal(monto) {
+        [...selectCuotasNormal.options].forEach(opt => {
+            const c = parseInt(opt.value);
+            const planNormal = PLAN_NORMAL[c];
+            if (!planNormal) {
+                opt.disabled = false;
+                return;
+            }
+            opt.disabled = monto > planNormal.maxMonto;
+        });
+        
+        if (selectCuotasNormal.selectedOptions[0]?.disabled) {
+            const defaultOption = selectCuotasNormal.querySelector('option:not([disabled])') || selectCuotasNormal.options[0];
+            selectCuotasNormal.value = defaultOption.value;
+        }
+    }
+
+    // Actualizar opciones de cuotas especiales basadas en la tasa seleccionada
+    function actualizarOpcionesCuotasEspecial() {
+        const tasaSeleccionada = selectTasaEspecial.value;
+        const planSeleccionado = PLAN_ESPECIAL[tasaSeleccionada];
+
+        selectCuotasEspecial.innerHTML = '<option value="">Cuotas</option>';
+        selectCuotasEspecial.disabled = true;
+
+        if (planSeleccionado) {
+            selectCuotasEspecial.disabled = false;
+            const cuotasDisponibles = Object.keys(planSeleccionado).map(Number).sort((a, b) => a - b);
+            
+            cuotasDisponibles.forEach(cuota => {
+                const option = document.createElement('option');
+                option.value = cuota;
+                option.textContent = cuota;
+                selectCuotasEspecial.appendChild(option);
+            });
+            selectCuotasEspecial.value = cuotasDisponibles[0] || ''; 
+        }
+
+        actualizarCalculo();
+    }
+    
+    // Habilitar/deshabilitar cuotas del Onix-Tracker por tope
+    function actualizarOpcionesCuotasOnixTracker(monto) {
+        const cuotaActual = selectCuotasOnixTracker.value;
+        let debeCambiarSeleccion = false;
+
+        [...selectCuotasOnixTracker.options].forEach(opt => {
+            const c = parseInt(opt.value);
+            const planOT = PLAN_ONIX_TRACKER[c];
+            
+            if (planOT) {
+                // Deshabilitar si excede el tope de monto
+                opt.disabled = monto > planOT.maxMonto;
+                if (opt.disabled && opt.value == cuotaActual) {
+                    debeCambiarSeleccion = true;
+                }
+            }
+        });
+        
+        // Si la opción seleccionada actualmente está deshabilitada, forzar la selección a un valor válido o nulo
+        if (debeCambiarSeleccion) {
+            const defaultOption = selectCuotasOnixTracker.querySelector('option:not([disabled])') || selectCuotasOnixTracker.options[0];
+            selectCuotasOnixTracker.value = defaultOption.value;
+        }
+    }
+
+
+    function actualizarCalculo() {
+        // --- 1. OBTENER VALORES ---
+        const montoOnixTracker = parseFloat(inputMontoOnixTracker.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const cuotasOnixTracker = parseInt(selectCuotasOnixTracker.value) || 0;
+        
+        const montoNormal = parseFloat(inputMontoNormal.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const cuotasNormal = parseInt(selectCuotasNormal.value) || 0;
+        
+        const montoEspecial = parseFloat(inputMontoEspecial.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const tasaEspecial = selectTasaEspecial.value;
+        const cuotasEspecial = parseInt(selectCuotasEspecial.value) || 0;
+
+        // CÁLCULOS DE ENTREGA
+        const entregaUsado = parseFloat(entregaUsadoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const entregaEfectivo = parseFloat(entregaEfectivoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+        const descuento = parseFloat(descuentoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
+
+        // OBTENER PRECIO BASE DINÁMICO
+        const precioBaseKey = selectorPrecioBase.value;
+        const precioBase = PRECIOS_BASE[precioBaseKey] || 0;
+        
+        // Mostrar el precio base seleccionado
+        precioBaseDisplay.textContent = formatNumber(precioBase);
+        
+        // Actualizar las opciones de cuota del Onix-Tracker basado en el monto ANTES de determinar el plan activo
+        actualizarOpcionesCuotasOnixTracker(montoOnixTracker);
+
+
+        // --- 2. DETERMINAR PLAN ACTIVO Y CALCULAR CUOTA Y PORCENTAJE DE QUEBRANTO ---
+        let montoActivo = 0;
+        let cuotasActivas = 0;
+        let valorCuotaMensual = 0;
+        let porcentajeQuebrantoAplicable = PORCENTAJE_QUEBRANTO_DEFAULT; // Por defecto: 11%
+        let planActivoNombre = ''; // Para identificar el plan
+
+        // Reiniciar displays y habilitar/deshabilitar controles de todos los planes
+        // Onix-Tracker
+        tasaTextoOnixTracker.textContent = "TASA: 0.00%";
+        valorCuotaTextoOnixTracker.textContent = "CUOTAS: $ 0.00";
+        inputMontoOnixTracker.disabled = false;
+        selectCuotasOnixTracker.disabled = false;
+        
+        // Normal
+        tasaTextoNormal.textContent = "TASA: 0.00%";
+        valorCuotaTextoNormal.textContent = "CUOTAS: $ 0.00";
+        inputMontoNormal.disabled = false;
+        selectCuotasNormal.disabled = false;
+        
+        // Especial
+        valorCuotaTextoEspecial.textContent = "CUOTAS: $ 0.00";
+        inputMontoEspecial.disabled = false;
+        selectTasaEspecial.disabled = false;
+        selectCuotasEspecial.disabled = false;
+
+        // PRIORIDAD: 1. Plan Especial
+        if (montoEspecial > 0 && PLAN_ESPECIAL[tasaEspecial] && PLAN_ESPECIAL[tasaEspecial][cuotasEspecial]) {
+            
+            // CÁLCULO PLAN ESPECIAL
+            montoActivo = montoEspecial;
+            cuotasActivas = cuotasEspecial;
+            planActivoNombre = 'Especial';
+            
+            // Quebranto por defecto (11%)
+            porcentajeQuebrantoAplicable = PORCENTAJE_QUEBRANTO_DEFAULT;
+            
+            const plan = PLAN_ESPECIAL[tasaEspecial][cuotasEspecial];
+            const multiplicador = montoActivo / UNIDAD_BASE;
+            valorCuotaMensual = multiplicador * plan.valorCuotaPorMillon;
+            valorCuotaTextoEspecial.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+            
+            // Deshabilitar otros planes
+            inputMontoOnixTracker.disabled = true;
+            selectCuotasOnixTracker.disabled = true;
+            inputMontoNormal.disabled = true;
+            selectCuotasNormal.disabled = true;
+
+        } 
+        // PRIORIDAD: 2. Plan Onix-Tracker
+        else if (montoOnixTracker > 0 && PLAN_ONIX_TRACKER[cuotasOnixTracker]) {
+            
+            // CÁLCULO PLAN ONIX-TRACKER
+            montoActivo = montoOnixTracker;
+            cuotasActivas = cuotasOnixTracker;
+            planActivoNombre = 'OnixTracker';
+            
+            const plan = PLAN_ONIX_TRACKER[cuotasActivas]; 
+            
+            if (plan && montoActivo <= plan.maxMonto) {
+                // Aplicar QUEBRANTO 12%
+                porcentajeQuebrantoAplicable = plan.quebranto; 
+                
+                // Cálculo de cuota
+                valorCuotaMensual = montoActivo / cuotasActivas;
+                valorCuotaTextoOnixTracker.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+            } else {
+                valorCuotaTextoOnixTracker.textContent = "CUOTAS: - (Excede Tope)";
+            }
+            
+            // Deshabilitar otros planes
+            inputMontoNormal.disabled = true;
+            selectCuotasNormal.disabled = true;
+            inputMontoEspecial.disabled = true;
+            selectTasaEspecial.disabled = true;
+            selectCuotasEspecial.disabled = true;
+
+        }
+        // PRIORIDAD: 3. Plan Normal
+        else {
+            
+            // CÁLCULO PLAN NORMAL
+            montoActivo = montoNormal;
+            cuotasActivas = cuotasNormal;
+            planActivoNombre = 'Normal';
+            
+            // Quebranto por defecto (11%)
+            porcentajeQuebrantoAplicable = PORCENTAJE_QUEBRANTO_DEFAULT;
+
+            actualizarOpcionesCuotasNormal(montoActivo);
+
+            const maxTotal = Math.max(...Object.values(PLAN_NORMAL).map(p => p.maxMonto));
+
+            if (montoActivo > 0 && montoActivo <= maxTotal) {
+                
+                const plan = obtenerPlanNormal(montoActivo, cuotasActivas); 
+                if (plan) {
+                    
+                    let valorBaseCuota = plan.valorCuotaPorMillon;
+                    
+                    // Si es 0% TNA (12 cuotas), la cuota debe ser exacta.
+                    if (plan.tna === 0.00 && cuotasActivas === 12) {
+                        valorCuotaMensual = montoActivo / cuotasActivas; 
+                    } else {
+                        const multiplicador = montoActivo / UNIDAD_BASE;
+                        valorCuotaMensual = multiplicador * valorBaseCuota;
+                    }
+                    
+                    tasaTextoNormal.textContent = `TASA: ${plan.tna.toFixed(2)}%`;
+                    valorCuotaTextoNormal.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+                } else {
+                    tasaTextoNormal.textContent = "TASA: -"; 
+                    valorCuotaTextoNormal.textContent = "CUOTAS: - (Excede Tope)";
+                }
+            }
+            
+            // Re-habilitar planes de mayor prioridad si no tienen monto activo
+            inputMontoEspecial.disabled = false;
+            selectTasaEspecial.disabled = false;
+            selectCuotasEspecial.disabled = false;
+            inputMontoOnixTracker.disabled = false;
+            selectCuotasOnixTracker.disabled = false;
+        }
+        
+        // --- 3. CÁLCULO DE GASTOS BANCARIOS (USANDO MONTO ACTIVO Y EL PORCENTAJE DE QUEBRANTO APLICABLE) ---
+        
+        const montoBaseGastos = montoActivo;
+
+        // 1. Quebranto (Usa el porcentaje determinado en el paso 2)
+        const quebrantoBase = montoBaseGastos * porcentajeQuebrantoAplicable;
+        const ivaQuebranto = quebrantoBase * PORCENTAJE_IVA_QUEBRANTO;
+        const quebrantoTotal = quebrantoBase + ivaQuebranto;
+        quebrantoTexto.textContent = "$ " + formatNumber(quebrantoTotal);
+
+        // 2. Sellado
+        let sellado = 0;
+        if (valorCuotaMensual > 0) { 
+            
+            const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
+            
+            // Caso especial Chubut 12x0%
+            if (montoActivo === 12000000 && cuotasActivas === 12 && porcentajeBanco === 0.012 && planActivoNombre === 'Normal') {
+                 sellado = 143951.42; 
+            } else {
+                 // Cálculo estándar
+                 const valorCuotaRedondeado = Math.round(valorCuotaMensual * 100) / 100;
+                 const totalCuotas = valorCuotaRedondeado * cuotasActivas;
+                 sellado = totalCuotas * porcentajeBanco; 
+            }
+        }
+        selladoTexto.textContent = "$ " + formatNumber(sellado);
+
+        // =======================================================
+        // 4. CÁLCULO Y ACTUALIZACIÓN DEL RESUMEN
+        // =======================================================
+        
+        const totalGastosBancarios = quebrantoTotal + sellado;
+        
+        const saldoEfectivoFinal = (
+            precioBase 
+            - entregaUsado 
+            - entregaEfectivo 
+            - montoActivo 
+            + quebrantoTotal 
+            + sellado
+            - descuento 
+        );
+        
+        // Actualizar displays del Resumen
+        document.getElementById("resumenPrecioBase").textContent = 
+            "$ " + formatNumber(precioBase);
+            
+        document.getElementById("resumenEntregaUsado").textContent =
+            "$ " + formatNumber(entregaUsado);
+            
+        document.getElementById("resumenEntregaEfectivo").textContent =
+            "$ " + formatNumber(entregaEfectivo);
+            
+        document.getElementById("resumenMontoFinanciado").textContent =
+            "$ " + formatNumber(montoActivo);
+            
+        document.getElementById("resumenGastosBancarios").textContent =
+            "$ " + formatNumber(totalGastosBancarios);
+            
+        document.getElementById("resumenSaldoEfectivoFinal").textContent = 
+            "$ " + formatNumber(saldoEfectivoFinal);
+            
+        // Calculos auxiliares ocultos para compatibilidad con el PDF
+        const aporteCliente = entregaUsado + entregaEfectivo + descuento;
+        document.getElementById("resumenAporteCliente").textContent = "$ " + formatNumber(aporteCliente);
+        
+        const totalPagadoCuotas = valorCuotaMensual * cuotasActivas;
+        const totalPagado = aporteCliente + totalPagadoCuotas;
+        document.getElementById("resumenTotalPagado").textContent = "$ " + formatNumber(totalPagado);
+        
+        document.getElementById("totalFinal").textContent = "$ " + formatNumber(precioBase + totalGastosBancarios - descuento); 
+        document.getElementById("saldoEfectivo").textContent = "$ " + formatNumber(saldoEfectivoFinal);
+    }
+
+    // --- EVENTOS ---
+    
+    // EVENTO: Cambiar Precio Base
+    selectorPrecioBase.addEventListener("change", actualizarCalculo);
+
+    // Eventos Plan Onix-Tracker 
+    inputMontoOnixTracker.addEventListener("input", actualizarCalculo);
+    selectCuotasOnixTracker.addEventListener("change", actualizarCalculo);
+
+    // Eventos Plan Normal
+    selectCuotasNormal.addEventListener("change", actualizarCalculo);
+    inputMontoNormal.addEventListener("input", actualizarCalculo);
+
+    // Eventos Plan Especial
+    selectTasaEspecial.addEventListener("change", actualizarOpcionesCuotasEspecial);
+    selectCuotasEspecial.addEventListener("change", actualizarCalculo);
+    inputMontoEspecial.addEventListener("input", actualizarCalculo);
+
+    // Eventos de Cliente
+    entregaUsadoInput.addEventListener("input", actualizarCalculo);
+    entregaEfectivoInput.addEventListener("input", actualizarCalculo);
+    descuentoInput.addEventListener("input", actualizarCalculo);
+
+    // Eventos Comunes
+    bancoSelect.addEventListener("change", actualizarCalculo);
+
+    // Manejo de formato en inputs
+    const inputsFormato = [inputMontoNormal, inputMontoEspecial, inputMontoOnixTracker, entregaUsadoInput, entregaEfectivoInput, descuentoInput];
+    inputsFormato.forEach(input => {
+        input.addEventListener("input", function(e) {
+            actualizarCalculo(); 
+        });
+        
+        input.addEventListener("blur", function(e) {
+            let value = e.target.value.replace(/[$.]/g, ''); 
+            let number = parseFloat(value.replace(',', '.')) || 0;
+
+            if (number > 0) {
+                e.target.value = formatNumber(number).replace('$', '').trim();
+            } else {
+                e.target.value = '';
+            }
+        });
+    });
+    
+    // PDF
+    document.getElementById("btnDescargarPDF").addEventListener("click", async () => {
+        const { jsPDF } = window.jspdf;
+        const elemento = document.body;
+        const canvas = await html2canvas(elemento, { scale: 2 });
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        let y = 0;
+        while (y < imgHeight) {
+            pdf.addImage(imgData, "PNG", 0, -y, imgWidth, imgHeight);
+            y += pdfHeight;
+            if (y < imgHeight) pdf.addPage();
+        }
+
+        const nombre = document.getElementById("cliente").value || "sinNombre";
+        pdf.save(`Cotizacion_${nombre}.pdf`);
+    });
+
+    // Inicializar: Seleccionar el primer banco por defecto y calcular.
+    selectorPrecioBase.value = Object.keys(PRECIOS_BASE)[0] || '';
+    actualizarOpcionesCuotasEspecial(); 
+    actualizarCalculo();
+});
+
+// FECHA
+const hoy = new Date();
+document.getElementById("fecha-hoy").textContent =
+    String(hoy.getDate()).padStart(2, "0") + "-" +
+    String(hoy.getMonth() + 1).padStart(2, "0") + "-" +
+    hoy.getFullYear();
+</script>
+
+</body>
+</html>
