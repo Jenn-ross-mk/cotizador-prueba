@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cotización Chevrolet Onix RS AT</title>
+<title>Cotización Chevrolet Onix</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -235,11 +236,6 @@
             <div class="label">ENTREGA DE USADO:</div>
             <input type="text" id="entregaUsadoInput" class="input-monto-cliente" placeholder="$ 0.00">
         </div>
-        
-        <div class="row">
-            <div class="label">ENTREGA DE EFECTIVO:</div>
-            <input type="text" id="entregaEfectivoInput" class="input-monto-cliente" placeholder="$ 0.00">
-        </div>
 
         <div class="row">
             <div class="label">DESCUENTO (si aplica):</div>
@@ -366,8 +362,6 @@
             <div class="label">VALOR DEL VEHÍCULO:</div>
             <div class="value" id="resumenPrecioBase">$ 0.00</div>
         </div>
-        
-        <hr class="divider">
 
         <div class="resumen-row">
             <div class="label">GASTOS BANCARIOS:</div>
@@ -377,13 +371,8 @@
         <hr class="divider">
 
         <div class="resumen-row">
-            <div class="label">ENTREGA DE USADO:</div>
+            <div class="label">ENTREGA (USADO):</div>
             <div class="value" id="resumenEntregaUsado">$ 0.00</div>
-        </div>
-        
-        <div class="resumen-row">
-            <div class="label">ENTREGA DE EFECTIVO:</div>
-            <div class="value" id="resumenEntregaEfectivo">$ 0.00</div>
         </div>
 
         <div class="resumen-row">
@@ -399,7 +388,7 @@
         <hr class="divider-bold">
 
         <div class="resumen-row saldo-final">
-            <div class="label">SALDO EN EFECTIVO:</div>
+            <div class="label">SALDO:</div>
             <div class="value" id="resumenSaldoEfectivoFinal">$ 0.00</div>
         </div>
 
@@ -540,7 +529,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const selladoTexto = document.getElementById("valorSellado");
     
     const entregaUsadoInput = document.getElementById("entregaUsadoInput");
-    const entregaEfectivoInput = document.getElementById("entregaEfectivoInput");
     const descuentoInput = document.getElementById("descuentoCliente");
 
     const selectorPrecioBase = document.getElementById("selectorPrecioBase");
@@ -653,7 +641,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const cuotasEspecial = parseInt(selectCuotasEspecial.value) || 0;
 
         const entregaUsado = parseFloat(entregaUsadoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
-        const entregaEfectivo = parseFloat(entregaEfectivoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
         const descuento = parseFloat(descuentoInput.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
 
         const precioBaseKey = selectorPrecioBase.value;
@@ -805,9 +792,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (valorCuotaMensual > 0) { 
             const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
             
-            if (montoActivo === 12000000 && cuotasActivas === 12 && porcentajeBanco === 0.012 && planActivoNombre === 'Normal') {
-                 sellado = 143951.42; 
-            } else {
+            if (montoActivo === 12000000 && cuotasActivas === 12 && porcentajeBanco === 0.012 && planActivoNombre === 'Normal') {sellado = 143951.42; }
+                else {
                  const valorCuotaRedondeado = Math.round(valorCuotaMensual * 100) / 100;
                  const totalCuotas = valorCuotaRedondeado * cuotasActivas;
                  sellado = totalCuotas * porcentajeBanco; 
@@ -825,7 +811,6 @@ document.addEventListener("DOMContentLoaded", () => {
             precioBase 
             + totalGastosBancarios
             - entregaUsado 
-            - entregaEfectivo 
             - montoActivo
             - descuento
         );
@@ -838,9 +823,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
         document.getElementById("resumenEntregaUsado").textContent =
             "$ " + formatNumber(entregaUsado);
-            
-        document.getElementById("resumenEntregaEfectivo").textContent =
-            "$ " + formatNumber(entregaEfectivo);
 
         document.getElementById("resumenMontoFinanciado").textContent =
             "$ " + formatNumber(montoActivo);
@@ -851,7 +833,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("resumenSaldoEfectivoFinal").textContent = 
             "$ " + formatNumber(saldoEfectivoFinal);
         
-        const aporteCliente = entregaUsado + entregaEfectivo + descuento;
+        const aporteCliente = entregaUsado + descuento;
         document.getElementById("resumenAporteCliente").textContent = "$ " + formatNumber(aporteCliente);
         
         const totalPagadoCuotas = valorCuotaMensual * cuotasActivas;
@@ -873,11 +855,10 @@ document.addEventListener("DOMContentLoaded", () => {
     selectCuotasEspecial.addEventListener("change", actualizarCalculo);
     inputMontoEspecial.addEventListener("input", actualizarCalculo);
     entregaUsadoInput.addEventListener("input", actualizarCalculo);
-    entregaEfectivoInput.addEventListener("input", actualizarCalculo);
     descuentoInput.addEventListener("input", actualizarCalculo);
     bancoSelect.addEventListener("change", actualizarCalculo);
 
-    const inputsFormato = [inputMontoNormal, inputMontoEspecial, inputMontoOnix, inputMontoOnixDiferido, entregaUsadoInput, entregaEfectivoInput, descuentoInput];
+    const inputsFormato = [inputMontoNormal, inputMontoEspecial, inputMontoOnix, inputMontoOnixDiferido, entregaUsadoInput, descuentoInput];
     inputsFormato.forEach(input => {
         input.addEventListener("input", function(e) {
             actualizarCalculo(); 
@@ -964,3 +945,4 @@ document.getElementById("fecha-hoy").textContent =
 
 </body>
 </html>
+
