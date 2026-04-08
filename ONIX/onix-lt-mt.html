@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cotización Chevrolet Onix LT MT</title>
+<title>Cotización Chevrolet Onix</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -366,20 +366,28 @@
             <div class="label">VALOR DEL VEHÍCULO:</div>
             <div class="value" id="resumenPrecioBase">$ 0.00</div>
         </div>
+
+        <div class="resumen-row">
+            <div class="label">GASTOS BANCARIOS:</div>
+            <div class="value" id="resumenGastosBancarios">$ 0.00</div>
+        </div>
         
         <hr class="divider">
+
+        <div class="resumen-row">
+            <div class="label">ENTREGA (USADO):</div>
+            <div class="value" id="resumenEntregaUsado">$ 0.00</div>
+        </div>
+        
+        <div class="resumen-row">
+            <div class="label">ENTREGA (EFECTIVO):</div>
+            <div class="value" id="resumenEntregaEfectivo">$ 0.00</div>
+        </div>
 
         <div class="resumen-row">
             <div class="label">MONTO A FINANCIAR:</div>
             <div class="value" id="resumenMontoFinanciado">$ 0.00</div>
         </div>
-
-        <div class="resumen-row">
-            <div class="label">ENTREGA DE USADO:</div>
-            <div class="value" id="resumenEntregaUsado">$ 0.00</div>
-        </div>
-        
-        
 
         <div class="resumen-row">
             <div class="label">DESCUENTO:</div>
@@ -795,9 +803,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (valorCuotaMensual > 0) { 
             const porcentajeBanco = BANCOS[bancoSelect.value] || 0;
             
-            if (montoActivo === 12000000 && cuotasActivas === 12 && porcentajeBanco === 0.012 && planActivoNombre === 'Normal') {
-                 sellado = 143951.42; 
-            } else {
+            if (montoActivo === 12000000 && cuotasActivas === 12 && porcentajeBanco === 0.012 && planActivoNombre === 'Normal') {sellado = 143951.42; }
+                else {
                  const valorCuotaRedondeado = Math.round(valorCuotaMensual * 100) / 100;
                  const totalCuotas = valorCuotaRedondeado * cuotasActivas;
                  sellado = totalCuotas * porcentajeBanco; 
