@@ -286,7 +286,6 @@
                         <option value="18.0">18.0</option>
                         <option value="24">24</option>
                         <option value="30">30</option>
-                        <option value="36">36</option>
                     </select>
                 </div>
 
@@ -300,7 +299,7 @@
         </div>
 
         <div class="section">
-            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL TRACKER (TASA 0%)</div>
+            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL MONTANA (TASA 0%)</div>
 
             <div class="financiacion" id="financiacionOnix">
                 <div>
@@ -312,7 +311,6 @@
                     <select id="cantidadCuotasOnix" style="padding:8px 12px;">
                         <option value="">Cuotas</option>
                         <option value="18">18</option>
-                        <option value="24">24</option>
                     </select>
                 </div>
 
@@ -326,7 +324,7 @@
         </div>
 
         <div class="section">
-            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL TRACKER (DIFERIDO)</div>
+            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL MONTANA (DIFERIDO)</div>
 
             <div class="financiacion" id="financiacionOnixDiferido">
                 <div>
@@ -461,8 +459,8 @@
             CONFIGURACIÓN DE PLANES Y TASAS
             ============================================================ */
         const PRECIOS_BASE = {
-            chubut: 54158900.00,
-            santacruz: 54758900.00
+            chubut: 44252900.00,
+            santacruz: 44852900.00
         };
 
         const PLAN_NORMAL = {
@@ -477,20 +475,15 @@
                 maxMonto: 26500000
             },
             "24": {
-                tna: 20.90,
-                valorCuotaPorMillon: 54804,
-                maxMonto: 20000000
+                tna: 18.90,
+                valorCuotaPorMillon: 53497,
+                maxMonto: 27000000
             },
             "30": {
-                tna: 24.90,
-                valorCuotaPorMillon: 49234,
-                maxMonto: 22000000
+                tna: 23.90,
+                valorCuotaPorMillon: 48557,
+                maxMonto: 32000000
             },
-            "36": {
-                tna: 24.90,
-                valorCuotaPorMillon: 43825,
-                maxMonto: 24000000
-            }
         };
 
         const PLAN_ESPECIAL = {
@@ -514,27 +507,21 @@
             18: {
                 tna: 0.00,
                 valorCuotaPorMillon: 55556,
-                maxMonto: 20000000,
+                maxMonto: 18000000,
                 quebranto: 0.13
             },
-            24: {
-                tna: 0.00,
-                valorCuotaPorMillon: 41667,
-                maxMonto: 14000000,
-                quebranto: 0.13
-            }
         };
 
         const PLAN_ONIX_DIFERIDO = {
             12: {
                 tna: 0.00,
                 valorCuotaPorMillon: 83333,
-                maxMonto: 15000000,
+                maxMonto: 30000000,
                 quebranto: 0.13
             },
         };
 
-        const PORCENTAJE_QUEBRANTO_DEFAULT = 0.11;
+        const PORCENTAJE_QUEBRANTO_DEFAULT = 0.13;
         const BANCOS = {
             chubut: 0.012,
             santacruz: 0.014
