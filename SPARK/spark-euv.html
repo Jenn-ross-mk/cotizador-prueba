@@ -286,7 +286,7 @@
                         <option value="18.0">18.0</option>
                         <option value="24">24</option>
                         <option value="30">30</option>
-                        <option value="36">36</option>
+
                     </select>
                 </div>
 
@@ -302,27 +302,29 @@
         <div class="section">
             <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL SPARK (DIFERIDO)</div>
 
-            <div class="financiacion" id="financiacionOnixDiferido">
+            <div class="financiacion" id="financiacionOnix">
                 <div>
-                    <input type="text" id="montoFinanciacionOnixDiferido" class="input-monto-financiacion"
+                    <input type="text" id="montoFinanciacionOnix" class="input-monto-financiacion"
                         placeholder="MONTO O-T">
                 </div>
 
-                <div id="cuotasContainerOnixDiferido">
-                    <select id="cantidadCuotasOnixDiferido" style="padding:8px 12px;">
+                <div id="cuotasContainerOnix">
+                    <select id="cantidadCuotasOnix" style="padding:8px 12px;">
                         <option value="">Cuotas</option>
                         <option value="12">12</option>
+
                     </select>
                 </div>
 
                 <div>
-                    <div id="tasaFinanciacionOnixDiferido">TASA: 0.00%</div>
+                    <div id="tasaFinanciacionOnix">TASA: 0.00%</div>
                 </div>
                 <div>
-                    <div id="valorCuotaOnixDiferido">CUOTAS: $ 0,00</div>
+                    <div id="valorCuotaOnix">CUOTAS: $ 0,00</div>
                 </div>
             </div>
         </div>
+
 
         <div class="section">
             <div class="label" style="padding-bottom: 10px; font-weight: normal;">Plan Especial (Tasa Fija / UVA)</div>
@@ -479,14 +481,16 @@
             }
         };
 
-        const PLAN_ONIX_DIFERIDO = {
+        const PLAN_ONIX = {
             12: {
                 tna: 0.00,
                 valorCuotaPorMillon: 83333,
                 maxMonto: 15000000,
                 quebranto: 0.11
             },
+
         };
+
 
         const PORCENTAJE_QUEBRANTO_DEFAULT = 0.11;
         const BANCOS = {
@@ -946,4 +950,3 @@
 </body>
 
 </html>
-
