@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotización Chevrolet Silverado Z71</title>
+    <title>Cotización Chevrolet SILVERADO</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -272,29 +272,55 @@
         </div>
 
         <div class="section">
-            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL TRAILBLAZER</div>
+            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL</div>
 
-            <div class="financiacion" id="financiacionOnixDiferido">
+            <div class="financiacion" id="financiacionNormal">
                 <div>
-                    <input type="text" id="montoFinanciacionOnixDiferido" class="input-monto-financiacion"
-                        placeholder="MONTO O-T">
+                    <input type="text" id="montoFinanciacionNormal" class="input-monto-financiacion"
+                        placeholder="MONTO NORMAL">
                 </div>
 
-                <div id="cuotasContainerOnixDiferido">
-                    <select id="cantidadCuotasOnixDiferido" style="padding:8px 12px;">
-                        <option value="">Cuotas</option>
+                <div id="cuotasContainerNormal">
+                    <select id="cantidadCuotasNormal" style="padding:8px 12px;">
                         <option value="12">12</option>
                     </select>
                 </div>
 
                 <div>
-                    <div id="tasaFinanciacionOnixDiferido">TASA: 0.00%</div>
+                    <div id="tasaFinanciacionNormal">TASA: 0.00%</div>
                 </div>
                 <div>
-                    <div id="valorCuotaOnixDiferido">CUOTAS: $ 0,00</div>
+                    <div id="valorCuotaNormal">CUOTAS: $ 0,00</div>
                 </div>
             </div>
         </div>
+
+        <div class="section">
+            <div class="label" style="padding-bottom: 10px;">PLAN PROMOCIONAL SILVERADO (DIFERIDO)</div>
+
+            <div class="financiacion" id="financiacionOnix">
+                <div>
+                    <input type="text" id="montoFinanciacionOnix" class="input-monto-financiacion"
+                        placeholder="MONTO O-T">
+                </div>
+
+                <div id="cuotasContainerOnix">
+                    <select id="cantidadCuotasOnix" style="padding:8px 12px;">
+                        <option value="">Cuotas</option>
+                        <option value="12">12</option>
+
+                    </select>
+                </div>
+
+                <div>
+                    <div id="tasaFinanciacionOnix">TASA: 0.00%</div>
+                </div>
+                <div>
+                    <div id="valorCuotaOnix">CUOTAS: $ 0,00</div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="section">
             <div class="label" style="padding-bottom: 10px; font-weight: normal;">Plan Especial (Tasa Fija / UVA)</div>
@@ -436,6 +462,16 @@
             }
         };
 
+        const PLAN_ONIX = {
+            12: {
+                tna: 0.00,
+                valorCuotaPorMillon: 83333,
+                maxMonto: 20000000,
+                quebranto: 0.11
+            },
+
+        };
+
         const PLAN_ONIX_DIFERIDO = {
             12: {
                 tna: 0.00,
@@ -562,6 +598,10 @@
             }
 
             function actualizarOpcionesCuotasOnixDiferido(monto) {
+                if (!inputMontoOnixDiferido || !selectCuotasOnixDiferido) {
+                    return;
+                }
+
                 const cuotaActual = selectCuotasOnixDiferido.value;
                 let debeCambiarSeleccion = false;
 
@@ -587,8 +627,8 @@
                 const montoOnix = parseFloat(inputMontoOnix.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
                 const cuotasOnix = parseInt(selectCuotasOnix.value) || 0;
 
-                const montoOnixDiferido = parseFloat(inputMontoOnixDiferido.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
-                const cuotasOnixDiferido = parseInt(selectCuotasOnixDiferido.value) || 0;
+                const montoOnixDiferido = inputMontoOnixDiferido ? parseFloat(inputMontoOnixDiferido.value.replace(/[$.]/g, "").replace(",", ".")) || 0 : 0;
+                const cuotasOnixDiferido = selectCuotasOnixDiferido ? parseInt(selectCuotasOnixDiferido.value) || 0 : 0;
 
                 const montoNormal = parseFloat(inputMontoNormal.value.replace(/[$.]/g, "").replace(",", ".")) || 0;
                 const cuotasNormal = selectCuotasNormal.value;
@@ -624,10 +664,10 @@
                 inputMontoOnix.disabled = false;
                 selectCuotasOnix.disabled = false;
 
-                tasaTextoOnixDiferido.textContent = "TASA: 0.00%";
-                valorCuotaTextoOnixDiferido.textContent = "CUOTAS: $ 0.00";
-                inputMontoOnixDiferido.disabled = false;
-                selectCuotasOnixDiferido.disabled = false;
+                if (tasaTextoOnixDiferido) tasaTextoOnixDiferido.textContent = "TASA: 0.00%";
+                if (valorCuotaTextoOnixDiferido) valorCuotaTextoOnixDiferido.textContent = "CUOTAS: $ 0.00";
+                if (inputMontoOnixDiferido) inputMontoOnixDiferido.disabled = false;
+                if (selectCuotasOnixDiferido) selectCuotasOnixDiferido.disabled = false;
 
                 valorCuotaTextoEspecial.textContent = "CUOTAS: $ 0.00";
                 inputMontoEspecial.disabled = false;
@@ -649,8 +689,8 @@
                     selectCuotasNormal.disabled = true;
                     inputMontoOnix.disabled = true;
                     selectCuotasOnix.disabled = true;
-                    inputMontoOnixDiferido.disabled = true;
-                    selectCuotasOnixDiferido.disabled = true;
+                    if (inputMontoOnixDiferido) inputMontoOnixDiferido.disabled = true;
+                    if (selectCuotasOnixDiferido) selectCuotasOnixDiferido.disabled = true;
                 }
                 else if (montoOnixDiferido > 0 && PLAN_ONIX_DIFERIDO[cuotasOnixDiferido]) {
                     montoActivo = montoOnixDiferido;
@@ -663,9 +703,9 @@
                         porcentajeQuebrantoAplicable = plan.quebranto;
                         const multiplicador = montoActivo / UNIDAD_BASE;
                         valorCuotaMensual = multiplicador * plan.valorCuotaPorMillon;
-                        valorCuotaTextoOnixDiferido.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
+                        if (valorCuotaTextoOnixDiferido) valorCuotaTextoOnixDiferido.textContent = `CUOTAS: $ ${formatNumber(valorCuotaMensual)}`;
                     } else {
-                        valorCuotaTextoOnixDiferido.textContent = "CUOTAS: - (Excede Tope)";
+                        if (valorCuotaTextoOnixDiferido) valorCuotaTextoOnixDiferido.textContent = "CUOTAS: - (Excede Tope)";
                     }
 
                     inputMontoNormal.disabled = true;
@@ -697,8 +737,8 @@
                     inputMontoEspecial.disabled = true;
                     selectTasaEspecial.disabled = true;
                     selectCuotasEspecial.disabled = true;
-                    inputMontoOnixDiferido.disabled = true;
-                    selectCuotasOnixDiferido.disabled = true;
+                    if (inputMontoOnixDiferido) inputMontoOnixDiferido.disabled = true;
+                    if (selectCuotasOnixDiferido) selectCuotasOnixDiferido.disabled = true;
                 }
                 else {
                     montoActivo = montoNormal;
@@ -735,8 +775,8 @@
                     selectCuotasEspecial.disabled = false;
                     inputMontoOnix.disabled = false;
                     selectCuotasOnix.disabled = false;
-                    inputMontoOnixDiferido.disabled = false;
-                    selectCuotasOnixDiferido.disabled = false;
+                    if (inputMontoOnixDiferido) inputMontoOnixDiferido.disabled = false;
+                    if (selectCuotasOnixDiferido) selectCuotasOnixDiferido.disabled = false;
                 }
 
                 const montoBaseGastos = montoActivo;
@@ -806,8 +846,8 @@
             inputMontoNormal.addEventListener("input", actualizarCalculo);
             inputMontoOnix.addEventListener("input", actualizarCalculo);
             selectCuotasOnix.addEventListener("change", actualizarCalculo);
-            inputMontoOnixDiferido.addEventListener("input", actualizarCalculo);
-            selectCuotasOnixDiferido.addEventListener("change", actualizarCalculo);
+            if (inputMontoOnixDiferido) inputMontoOnixDiferido.addEventListener("input", actualizarCalculo);
+            if (selectCuotasOnixDiferido) selectCuotasOnixDiferido.addEventListener("change", actualizarCalculo);
             selectTasaEspecial.addEventListener("change", actualizarOpcionesCuotasEspecial);
             selectCuotasEspecial.addEventListener("change", actualizarCalculo);
             inputMontoEspecial.addEventListener("input", actualizarCalculo);
@@ -815,7 +855,9 @@
             descuentoInput.addEventListener("input", actualizarCalculo);
             bancoSelect.addEventListener("change", actualizarCalculo);
 
-            const inputsFormato = [inputMontoNormal, inputMontoEspecial, inputMontoOnix, inputMontoOnixDiferido, entregaUsadoInput, descuentoInput];
+            const inputsFormato = [inputMontoNormal, inputMontoEspecial, inputMontoOnix, entregaUsadoInput, descuentoInput];
+            if (inputMontoOnixDiferido) inputsFormato.push(inputMontoOnixDiferido);
+
             inputsFormato.forEach(input => {
                 input.addEventListener("input", function (e) {
                     actualizarCalculo();
